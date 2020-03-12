@@ -1,0 +1,13 @@
+apply plugin: 'java'
+apply plugin: 'application'
+apply plugin: "jacoco" 
+
+repositories {
+    jcenter()
+}
+
+run {
+    standardInput = System.in
+}
+
+mainClassName = 'lukuvinkkikirjasto.ui.App'
