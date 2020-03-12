@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/tommise/lukuvinkkikirjasto.svg?style=svg)](https://circleci.com/gh/tommise/lukuvinkkikirjasto)
+
 # Lukuvinkkikirjasto
 
 [Backlog](https://docs.google.com/spreadsheets/d/1UMzBbBumxvwz7_kkdy7kEW3knXUErZN63khtOkXKNxQ/edit#gid=1)
