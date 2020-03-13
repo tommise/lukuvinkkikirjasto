@@ -8,7 +8,7 @@
 
 ## Dokumentaatio
 
-[Asennus- ja käyttöohjeet](https://github.com/tommise/lukuvinkkikirjasto/documentation/user_instructions.md) 
+[Asennus- ja käyttöohjeet](https://github.com/tommise/lukuvinkkikirjasto/blob/master/documentation/user_instructions.md)
 
 Definition of done
 
