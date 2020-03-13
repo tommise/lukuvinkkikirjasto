@@ -16,15 +16,20 @@ public class IOService {
     
     public void suorita() {
         while (true) {
-            System.out.println("Testi!!");
-            //io.print("Lisää uusi vinkki");
-            //io.print("Otsikko: ");
-            //String otsikko = io.nextLine();
+            io.print("**Lisää uusi vinkki**");
+            io.print("Otsikko: ");
+            String otsikko = io.nextLine();
+            io.print("Linkki: ");
+            String linkki = io.nextLine();
+            createTip(otsikko, linkki);
             break;
             
         }
     }
     
+    private void createTip(String otsikko, String linkki) {
+        tipService.createTip(otsikko, linkki);
+    }
     
     public static void main(String[] args) throws Exception {
         IOService ioservice = new IOService(new KonsoliIO());
@@ -32,14 +37,14 @@ public class IOService {
     }
     
     private void init() throws Exception {
-        /*
+        
         Database db = new Database("jdbc:sqlite:vinkkitietokanta.db");
         db.createTables();
         TipDao tipDao = new SqlTipDao(db);
         TipService tipService = new TipService(tipDao);
         
         this.tipService = tipService;
-        */
+        
         suorita();    
     }
 
