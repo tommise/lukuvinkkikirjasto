@@ -6,6 +6,10 @@ public class KonsoliIO implements IO {
 
     private Scanner lukija;
     
+    public KonsoliIO() {
+        this.lukija = new Scanner(System.in);
+    }
+    
     @Override
     public String nextLine() {
         return lukija.nextLine();
