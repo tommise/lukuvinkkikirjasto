@@ -12,6 +12,6 @@
 
 Definition of done
 
-Circle CI
+[Circle CI](https://circleci.com/gh/tommise/lukuvinkkikirjasto)
 
 
