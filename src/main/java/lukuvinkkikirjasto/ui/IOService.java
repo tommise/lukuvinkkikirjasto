@@ -15,8 +15,9 @@ public class IOService {
     }
     
     public void suorita() {
+        instructions();
         while (true) {
-            io.print("**Lisää uusi vinkki**");
+            
             io.print("Otsikko: ");
             String otsikko = io.nextLine();
             io.print("Linkki: ");
@@ -25,6 +26,12 @@ public class IOService {
             break;
             
         }
+    }
+    
+    private void instructions() {
+        io.print("Tervetuloa lukuvinkkisovellukseen! \n"
+                + "Lisää uusi vinkki, valitse 1 \n"
+                + "Tarkastele lukuvinkkejä, valitse 2");
     }
     
     private void createTip(String otsikko, String linkki) {
