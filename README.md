@@ -10,7 +10,7 @@
 
 [Asennus- ja käyttöohjeet](https://github.com/tommise/lukuvinkkikirjasto/blob/master/documentation/user_instructions.md)
 
-Definition of done
+[Definition of done](https://github.com/tommise/lukuvinkkikirjasto/blob/master/documentation/definition_of_done.md)
 
 [Circle CI](https://circleci.com/gh/tommise/lukuvinkkikirjasto)
 
