@@ -6,7 +6,8 @@ repositories {
     jcenter()
 }
 
-dependencies {
+dependencies {  
+  compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.30.1'  
   testCompile 'junit:junit:4.12'
 }
 
