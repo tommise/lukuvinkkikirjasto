@@ -4,7 +4,7 @@ package lukuvinkkikirjasto.dao;
 import java.sql.*;
 import lukuvinkkikirjasto.domain.Tip;
 
-public class SqlTipDao {
+public class SqlTipDao implements TipDao {
     
     private Database database;
     
