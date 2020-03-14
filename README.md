@@ -1,4 +1,5 @@
 [![CircleCI](https://circleci.com/gh/tommise/lukuvinkkikirjasto.svg?style=svg)](https://circleci.com/gh/tommise/lukuvinkkikirjasto)
+[![codecov](https://codecov.io/gh/tommise/lukuvinkkikirjasto/branch/master/graph/badge.svg)](https://codecov.io/gh/tommise/lukuvinkkikirjasto)
 
 # Lukuvinkkikirjasto
 
