@@ -13,10 +13,11 @@ public class TipService {
     }
 
     public Tip createTip(String title, String link) {
+        /*
         if (!tipTitleIsValid(title)) {
             return null;
         }
-
+        */
         try {
             return tipDao.create(title, link);
         } catch (SQLException e) {
@@ -25,7 +26,9 @@ public class TipService {
         }       
     }
 
+    /*
     private boolean tipTitleIsValid(String title){
         return title.length() > 0;
     }
+    */
 }
