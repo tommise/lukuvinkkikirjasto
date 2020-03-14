@@ -15,4 +15,5 @@
 
 [Circle CI](https://circleci.com/gh/tommise/lukuvinkkikirjasto)
 
-User storyjen hyväksymiskriteerit Cucumberin feature-tiedostoissa
+[User storyjen hyväksymiskriteerit Cucumberin feature-tiedostoissa](https://github.com/tommise/lukuvinkkikirjasto/tree/master/src/test/resources/lukuvinkkikirjasto)
+
