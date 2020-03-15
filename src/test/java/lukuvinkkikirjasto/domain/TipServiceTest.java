@@ -7,6 +7,7 @@ import lukuvinkkikirjasto.dao.TipDao;
 import static org.junit.Assert.*;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class TipServiceTest {
     TipService tipService;
@@ -16,6 +17,11 @@ public class TipServiceTest {
         @Override
         public Tip create(String title, String link){      
         return new Tip(title, link, 1);
+        }
+
+        @Override
+        public List<Tip> getAll() throws SQLException {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
     };
 
