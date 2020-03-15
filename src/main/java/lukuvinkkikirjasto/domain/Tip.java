@@ -24,4 +24,9 @@ public class Tip {
     public int getId() {
         return this.id;
     }  
+    
+    @Override
+    public String toString() {
+        return "Title: " + this.title + "\n" + "Link: " + this.link;
+    }
 }
