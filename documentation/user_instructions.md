@@ -5,18 +5,25 @@ Kloonaa lukuvinkkikirjasto paikallisesti haluamaasi kansioon komennolla:
 ```
 git clone git@github.com:tommise/lukuvinkkikirjasto.git
 ```
+ja avaa kansio terminaalilla.
 
-Suorita gradlen komennot clean ja build:
+Suorita seuraavat gradlen komennot:
 ```
-gradle clean
+./gradlew
 ```
 ```
-gradle build
+./gradlew clean
 ```
-
-Käynnistä sovellus:
 ```
-gradle run
+./gradlew build
+```
+Luo projektista suoritettava .jar tiedosto:
+```
+./gradlew shadowJar
+```
+Käynnistä sovellus projektin juurikansiossa komennolla:
+```
+java -jar build/libs/lukuvinkkikirjasto-all.jar
 ```
 
 ### Käyttöohjeet:
