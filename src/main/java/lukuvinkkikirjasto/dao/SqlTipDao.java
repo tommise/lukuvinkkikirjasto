@@ -2,6 +2,8 @@
 package lukuvinkkikirjasto.dao;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import lukuvinkkikirjasto.domain.Tip;
 
 public class SqlTipDao implements TipDao {
@@ -52,6 +54,28 @@ public class SqlTipDao implements TipDao {
         connection.close();
 
         return tip;
+    }
+
+    @Override
+    public List<Tip> getAll() throws SQLException {
+        List<Tip> tips = new ArrayList<>();
+        
+        Connection connection = database.getConnection();
+            
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM Tip");
+
+        ResultSet rs = statement.executeQuery();
+        
+        while (rs.next()) {
+            Tip t = new Tip(rs.getString("title"), rs.getString("link"), rs.getInt("id"));
+            tips.add(t);
+        }
+        
+        rs.close();
+        statement.close();
+        connection.close();
+        
+        return tips;
     }
     
 }
