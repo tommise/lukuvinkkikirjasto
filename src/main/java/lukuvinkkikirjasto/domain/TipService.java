@@ -2,6 +2,7 @@
 package lukuvinkkikirjasto.domain;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import lukuvinkkikirjasto.dao.TipDao;
 
@@ -12,6 +13,11 @@ public class TipService {
         this.tipDao = tipDao;
     }
 
+    //TYÖN ALLA
+    public List<Tip> getAll() throws SQLException {
+        return tipDao.getAll();
+    }
+    
     public Tip createTip(String title, String link) {
         /*
         if (!tipTitleIsValid(title)) {

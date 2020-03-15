@@ -1,11 +1,13 @@
 package lukuvinkkikirjasto.ui;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import lukuvinkkikirjasto.dao.Database;
 import lukuvinkkikirjasto.dao.SqlTipDao;
 import lukuvinkkikirjasto.dao.TipDao;
+import lukuvinkkikirjasto.domain.Tip;
 import lukuvinkkikirjasto.domain.TipService;
 
 public class IOService {
@@ -26,7 +28,7 @@ public class IOService {
         return commands;
     }    
     
-    public void suorita() {
+    public void suorita() throws SQLException {
         printInstructions();
         
         while (true) {
@@ -40,8 +42,23 @@ public class IOService {
             if (command.equals("1")) {
                 createTip();
             }
-            
+            if (command.equals("2")) {
+                listAllTips();
+            }
         }       
+    }
+    
+    private void listAllTips() throws SQLException {
+        List<Tip> tips = tipService.getAll();
+        
+        if (tips.size() == 0) {
+            io.print("Sinulla ei ole yhtään lukuvinkkiä.");
+        } else {
+            for (Tip t : tips) {
+                io.print(t.toString());
+                io.print("");
+            }
+        }
     }
     
     private void createTip() {
