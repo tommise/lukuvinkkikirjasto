@@ -53,6 +53,7 @@ public class IOService {
         
         if (tips.size() == 0) {
             io.print("Sinulla ei ole yhtään lukuvinkkiä.");
+            io.print("");
         } else {
             for (Tip t : tips) {
                 io.print(t.toString());
