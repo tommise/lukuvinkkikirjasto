@@ -31,6 +31,11 @@ public class TipServiceTest {
         public Tip create(String title, String link) throws SQLException {
         throw new SQLException("error");
         }
+
+        @Override
+        public List<Tip> getAll() throws SQLException {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
     };
 
     @Before
