@@ -29,7 +29,7 @@ public class IOService {
         return commands;
     }    
     
-    public void suorita() throws SQLException {
+    public void runApp() throws SQLException {
         printInstructions();
         
         while (true) {
@@ -67,15 +67,15 @@ public class IOService {
     }
     
     private void createTip() {
-        String otsikko = null;
-        while (otsikko == null) {
+        String title = null;
+        while (title == null) {
             io.print("Otsikko: ");
-            otsikko = io.nextLine();
-            otsikko = validateTitle(otsikko);
+            title = io.nextLine();
+            title = validateTitle(title);
         }
         io.print("Linkki: ");
-        String linkki = io.nextLine();        
-        tipService.createTip(otsikko, linkki);
+        String link = io.nextLine();        
+        tipService.createTip(title, link);
         
         io.print("Lukuvinkki lisatty!");
         io.print("");
@@ -100,8 +100,8 @@ public class IOService {
     
     
     
-    private void createTip(String otsikko, String linkki) {
-        tipService.createTip(otsikko, linkki);
+    private void createTip(String title, String link) {
+        tipService.createTip(title, link);
     }
     
     public static void main(String[] args) throws Exception {
@@ -110,6 +110,6 @@ public class IOService {
         TipDao tipDao = new SqlTipDao(db);            
         TipService tipService = new TipService(tipDao);
         IOService ioservice = new IOService(new KonsoliIO(), tipService);
-        ioservice.suorita();  
+        ioservice.runApp();  
     }
 }
