@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import lukuvinkkikirjasto.dao.Database;
-import lukuvinkkikirjasto.dao.MockTipDao;
 import lukuvinkkikirjasto.dao.SqlTipDao;
 import lukuvinkkikirjasto.dao.TipDao;
 import lukuvinkkikirjasto.domain.Tip;
