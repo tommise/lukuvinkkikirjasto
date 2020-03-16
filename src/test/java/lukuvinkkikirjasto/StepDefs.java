@@ -21,16 +21,26 @@ public class StepDefs {
     List<String> inputLines;
     StubIO stubIO;
     TipService tipService;
+    List<Tip> testTips;
 
     @Before
     public void setup(){
         inputLines = new ArrayList<>();
-        tipService = new TipService(new MockTipDao());
+        tipService = new TipService(new MockTipDao(new ArrayList<>()));
     }
 
     @Given("a user has chosen command {int}")
     public void aUserHasChosenCommand(Integer int1) {
         inputLines.add("" + int1);
+    }
+
+    @Given("some tip items have been added") 
+    public void dataBaseHasBeenInitialized() {
+        testTips = new ArrayList<>();
+        testTips.add(new Tip("test-title1", "test-link1", 1));
+        testTips.add(new Tip("test-title2", "test-link2", 2));
+        testTips.add(new Tip("test-title3", "test-link3", 3));
+        tipService = new TipService(new MockTipDao(testTips));
     }
 
     @When("title {string} is entered")
@@ -56,6 +66,17 @@ public class StepDefs {
         List<Tip> entries = tipService.getAll();
         List<String> titles = entries.stream().map(tip -> tip.getTitle()).collect(Collectors.toList());
         assertTrue(titles.contains(string));         
+    }
+
+    @Then("a list containing right items is shown")
+    public void aListContainingRightItemsIsShown() throws Exception{
+        stubIO = new StubIO(inputLines);        
+        runApp();
+        testTips.forEach(tip -> {
+            assertTrue(stubIO.getPrints().contains(tip.toString()));
+        });
+        System.out.print(stubIO.getPrints());
+
     }
 
     private void runApp() throws Exception {

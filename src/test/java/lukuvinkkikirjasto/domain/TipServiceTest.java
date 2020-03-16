@@ -8,6 +8,7 @@ import lukuvinkkikirjasto.dao.TipDao;
 import static org.junit.Assert.*;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TipServiceTest {
@@ -28,7 +29,7 @@ public class TipServiceTest {
 
     @Before
     public void init() {
-        TipDao stubTipDao = new MockTipDao();
+        TipDao stubTipDao = new MockTipDao(new ArrayList<>());
         this.tipService = new TipService(stubTipDao);
     }
 
@@ -53,6 +54,7 @@ public class TipServiceTest {
         List<Tip> tips = tipService.getAll();
         assertEquals(2, tips.size());
         assertTrue(tips.get(0).getClass() == Tip.class);
+        assertEquals("title1", tips.get(0).getTitle());
         assertEquals("title2", tips.get(1).getTitle());
     }
 }

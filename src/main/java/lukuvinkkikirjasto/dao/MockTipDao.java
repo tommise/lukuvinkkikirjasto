@@ -7,7 +7,11 @@ import java.util.List;
 import lukuvinkkikirjasto.domain.Tip;
 
 public class MockTipDao implements TipDao {
-    private List<Tip> tips = new ArrayList<>();
+    private List<Tip> tips;
+
+    public MockTipDao(List<Tip> tips) {
+        this.tips = tips;
+    }
 
     @Override
     public Tip create(String title, String link) throws SQLException {
