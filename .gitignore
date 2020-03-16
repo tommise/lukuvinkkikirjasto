@@ -3,3 +3,4 @@ build/
 .nb-gradle/
 /vinkkitietokanta.db
 bin/
+/vinkkitietokanta-test.db
