@@ -35,6 +35,9 @@ public class IOService {
             io.print("Komento: "); 
             String command = io.nextLine();
             System.out.println("");
+            if (command.isEmpty()) {
+                break;
+            }
             if (!commands.keySet().contains(command)) {
                 System.out.println("Komentoa ei tunnistettu.");
                 printInstructions();
@@ -71,17 +74,17 @@ public class IOService {
         }
         io.print("Linkki: ");
         String linkki = io.nextLine();
-        
+        System.out.println("Otsikko" + otsikko + "Linkki:" + linkki);
         tipService.createTip(otsikko, linkki);
         
-        io.print("Lukuvinkki lisätty!");
+        io.print("Lukuvinkki lisatty!");
         io.print("");
     }
     
     private String validateTitle(String input) {
         String trimmedInput = input.trim();
         if (trimmedInput.length() == 0) {
-            io.print("Otsikko ei voi olla tyhjä!");
+            io.print("Otsikko ei voi olla tyhja!");
             trimmedInput = null;
         }
         return trimmedInput;
@@ -106,7 +109,7 @@ public class IOService {
         ioservice.init();  
     }
     
-    private void init() throws Exception {
+    public void init() throws Exception {
         
         Database db = new Database("jdbc:sqlite:vinkkitietokanta.db");
         db.createTables();
