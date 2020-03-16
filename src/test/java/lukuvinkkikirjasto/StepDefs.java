@@ -60,6 +60,6 @@ public class StepDefs {
 
     private void runApp() throws Exception {
         IOService ioService = new IOService(stubIO, tipService);
-        ioService.suorita();
+        ioService.runApp();
     }
 }
