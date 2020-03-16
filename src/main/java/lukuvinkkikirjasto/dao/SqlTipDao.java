@@ -14,6 +14,7 @@ public class SqlTipDao implements TipDao {
         this.database = database;
     }
        
+    @Override
     public Tip create(String title, String link) throws SQLException {
         Connection connection = database.getConnection();  
         
@@ -30,6 +31,7 @@ public class SqlTipDao implements TipDao {
         return findByTitle(title);
     }
     
+    @Override
     public Tip findByTitle(String title) throws SQLException {
         Connection connection = database.getConnection();
             
