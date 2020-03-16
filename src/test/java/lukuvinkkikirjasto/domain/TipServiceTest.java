@@ -24,6 +24,11 @@ public class TipServiceTest {
         public List<Tip> getAll() throws SQLException {
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
+
+        @Override
+        public Tip findByTitle(String title) throws SQLException {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
     };
 
     @Before
