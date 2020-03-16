@@ -27,6 +27,6 @@ public class Tip {
     
     @Override
     public String toString() {
-        return "Title: " + this.title + "\n" + "Link: " + this.link;
+        return "Otsikko: " + this.title + "\n" + "Linkki: " + this.link;
     }
 }
