@@ -2,6 +2,7 @@ package lukuvinkkikirjasto.domain;
 
 import org.junit.*;
 
+import lukuvinkkikirjasto.dao.MockTipDao;
 import lukuvinkkikirjasto.dao.TipDao;
 
 import static org.junit.Assert.*;
@@ -11,19 +12,6 @@ import java.util.List;
 
 public class TipServiceTest {
     TipService tipService;
-
-    TipDao stubTipDao = new TipDao(){  
-        
-        @Override
-        public Tip create(String title, String link){      
-        return new Tip(title, link, 1);
-        }
-
-        @Override
-        public List<Tip> getAll() throws SQLException {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        }
-    };
 
     TipDao stubTipDaoThrowsException = new TipDao(){
         
@@ -40,6 +28,7 @@ public class TipServiceTest {
 
     @Before
     public void init() {
+        TipDao stubTipDao = new MockTipDao();
         this.tipService = new TipService(stubTipDao);
     }
 
@@ -50,14 +39,6 @@ public class TipServiceTest {
         assertEquals("link", tip.getLink());
     }
 
-    /*
-    @Test
-    public void ifEmptyTitleIsGivenTipServiceReturnsNull() {
-        Tip tip = tipService.createTip("", "link");
-        assertEquals(null, tip);
-    }
-    */
-
     @Test
     public void tipServiceCatchesException() {
         TipService service = new TipService(stubTipDaoThrowsException);
@@ -65,4 +46,13 @@ public class TipServiceTest {
         assertEquals(null, tip);
     }
 
+    @Test
+    public void getAllReturnsAddedTips() throws SQLException{
+        tipService.createTip("title1", "link1");
+        tipService.createTip("title2", "link2");
+        List<Tip> tips = tipService.getAll();
+        assertEquals(2, tips.size());
+        assertTrue(tips.get(0).getClass() == Tip.class);
+        assertEquals("title2", tips.get(1).getTitle());
+    }
 }
