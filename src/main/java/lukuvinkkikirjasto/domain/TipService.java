@@ -27,7 +27,6 @@ public class TipService {
         try {
             return tipDao.create(title, link);
         } catch (SQLException e) {
-            e.printStackTrace();
             return null; 
         }       
     }

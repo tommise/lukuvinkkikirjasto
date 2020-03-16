@@ -5,23 +5,26 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
 import static org.junit.Assert.*;
-import lukuvinkkikirjasto.ui.IO;
+
+import lukuvinkkikirjasto.dao.MockTipDao;
+import lukuvinkkikirjasto.domain.Tip;
 import lukuvinkkikirjasto.ui.StubIO;
 import lukuvinkkikirjasto.ui.IOService;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class StepDefs {
     List<String> inputLines;
     StubIO stubIO;
+    MockTipDao mockTipDao;
 
     @Before
     public void setup(){
-        inputLines = new ArrayList<>();   
+        inputLines = new ArrayList<>();
+        mockTipDao = new MockTipDao();   
     }
 
     @Given("a user has chosen command {int}")
@@ -41,11 +44,23 @@ public class StepDefs {
 
     @Then("system will respond with {string}")
     public void systemWillRespondWith(String expectedResponse) throws Exception{
-        stubIO = new StubIO(inputLines);
-        
-        IOService ioService = new IOService(stubIO);
-        ioService.init();
+        stubIO = new StubIO(inputLines);        
+        initApp();
         assertTrue(stubIO.getPrints().contains(expectedResponse));
         System.out.print(stubIO.getPrints());
+    }
+
+    @Then("Tip with title {string} can be found from database")
+    public void tipIsSavedToDatabase(String string) throws Exception{
+        List<Tip> entries = mockTipDao.getAll();
+        List<String> titles = entries.stream().map(tip -> tip.getTitle()).collect(Collectors.toList());
+        assertTrue(titles.contains(string));         
+    }
+
+
+    private void initApp() throws Exception {
+        IOService ioService = new IOService(stubIO);
+        ioService.initForTests(mockTipDao);
+        ioService.suorita();
     }
 }
