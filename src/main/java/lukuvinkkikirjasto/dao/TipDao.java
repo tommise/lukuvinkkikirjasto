@@ -9,5 +9,7 @@ public interface TipDao {
     
     Tip create(String title, String link) throws SQLException;
     
+    Tip findByTitle(String title) throws SQLException;
+    
     List<Tip> getAll() throws SQLException;
 }

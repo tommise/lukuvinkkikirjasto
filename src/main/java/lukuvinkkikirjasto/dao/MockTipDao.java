@@ -19,6 +19,10 @@ public class MockTipDao implements TipDao {
     @Override
     public List<Tip> getAll() throws SQLException {
         return tips;
+    }    
+
+    @Override
+    public Tip findByTitle(String title) throws SQLException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
 }
