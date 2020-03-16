@@ -16,9 +16,10 @@ public class IOService {
     private TipService tipService;
     private Map<String, String> commands;
     
-    public IOService(IO io) {
+    public IOService(IO io, TipService tipService) {
         this.io = io;
         this.commands = createCommands();
+        this.tipService = tipService;
     }
     
     private TreeMap<String, String> createCommands() {
@@ -104,21 +105,11 @@ public class IOService {
     }
     
     public static void main(String[] args) throws Exception {
-        IOService ioservice = new IOService(new KonsoliIO());
-        ioservice.init();  
-    }
-    
-    private void init() throws Exception {        
         Database db = new Database("jdbc:sqlite:vinkkitietokanta.db");
         db.createTables();
-        TipDao tipDao = new SqlTipDao(db);
-        TipService tipService = new TipService(tipDao);        
-        this.tipService = tipService;        
-        suorita();    
+        TipDao tipDao = new SqlTipDao(db);            
+        TipService tipService = new TipService(tipDao);
+        IOService ioservice = new IOService(new KonsoliIO(), tipService);
+        ioservice.suorita();  
     }
-
-    public void initForTests(TipDao mockTipDao) {
-        this.tipService = new TipService(mockTipDao);
-    }
-
 }

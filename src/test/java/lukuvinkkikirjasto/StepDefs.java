@@ -8,6 +8,7 @@ import static org.junit.Assert.*;
 
 import lukuvinkkikirjasto.dao.MockTipDao;
 import lukuvinkkikirjasto.domain.Tip;
+import lukuvinkkikirjasto.domain.TipService;
 import lukuvinkkikirjasto.ui.StubIO;
 import lukuvinkkikirjasto.ui.IOService;
 
@@ -19,12 +20,12 @@ import java.util.stream.Collectors;
 public class StepDefs {
     List<String> inputLines;
     StubIO stubIO;
-    MockTipDao mockTipDao;
+    TipService tipService;
 
     @Before
     public void setup(){
         inputLines = new ArrayList<>();
-        mockTipDao = new MockTipDao();   
+        tipService = new TipService(new MockTipDao());
     }
 
     @Given("a user has chosen command {int}")
@@ -45,22 +46,20 @@ public class StepDefs {
     @Then("system will respond with {string}")
     public void systemWillRespondWith(String expectedResponse) throws Exception{
         stubIO = new StubIO(inputLines);        
-        initApp();
+        runApp();
         assertTrue(stubIO.getPrints().contains(expectedResponse));
         System.out.print(stubIO.getPrints());
     }
 
     @Then("Tip with title {string} can be found from database")
     public void tipIsSavedToDatabase(String string) throws Exception{
-        List<Tip> entries = mockTipDao.getAll();
+        List<Tip> entries = tipService.getAll();
         List<String> titles = entries.stream().map(tip -> tip.getTitle()).collect(Collectors.toList());
         assertTrue(titles.contains(string));         
     }
 
-
-    private void initApp() throws Exception {
-        IOService ioService = new IOService(stubIO);
-        ioService.initForTests(mockTipDao);
+    private void runApp() throws Exception {
+        IOService ioService = new IOService(stubIO, tipService);
         ioService.suorita();
     }
 }
