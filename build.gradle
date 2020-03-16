@@ -44,4 +44,12 @@ jacocoTestReport {
         xml.enabled true
         html.enabled true
     }
+    
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: ['lukuvinkkikirjasto/ui/App**',\
+                                        'lukuvinkkikirjasto/ui/KonsoliIO**'])
+        }))
+
+    }
 }
