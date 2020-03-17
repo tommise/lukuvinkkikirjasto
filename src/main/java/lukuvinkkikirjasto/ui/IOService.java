@@ -56,7 +56,7 @@ public class IOService {
         List<Tip> tips = tipService.getAll();
         
         if (tips.size() == 0) {
-            io.print("Sinulla ei ole yhtään lukuvinkkiä.");
+            io.print("Sinulla ei ole yhtaan lukuvinkkia.");
             io.print("");
         } else {
             for (Tip t : tips) {
@@ -99,10 +99,11 @@ public class IOService {
     }
     
     
-    
+    /*
     private void createTip(String title, String link) {
         tipService.createTip(title, link);
     }
+    */
     
     public static void main(String[] args) throws Exception {
         Database db = new Database("jdbc:sqlite:vinkkitietokanta.db");
