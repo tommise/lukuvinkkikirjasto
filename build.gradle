@@ -17,7 +17,7 @@ repositories {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'readingtipslibrary.app.Main'
+        attributes 'Main-Class': 'lukuvinkkikirjasto.ui.App'
     }
 }
 
