@@ -8,7 +8,6 @@ import io.cucumber.java.en.Then;
 import static org.junit.Assert.*;
 
 import lukuvinkkikirjasto.dao.Database;
-import lukuvinkkikirjasto.dao.MockTipDao;
 import lukuvinkkikirjasto.dao.SqlTipDao;
 import lukuvinkkikirjasto.domain.Tip;
 import lukuvinkkikirjasto.domain.TipService;
@@ -68,12 +67,16 @@ public class StepDefs {
 
     @When("title {string} is entered")
     public void titleIsEntered(String title) {
-        System.out.println(title);
         if(title.isEmpty()) {
             inputLines.add(title);
             inputLines.add("some string to get throw");    
         }
         inputLines.add(title);
+    }
+
+    @When("a link {string} is entered")
+    public void linkIsEntered(String link) {
+        inputLines.add(link);
     }
 
     @Then("system will respond with {string}")
@@ -89,6 +92,13 @@ public class StepDefs {
         List<Tip> entries = tipService.getAll();
         List<String> titles = entries.stream().map(tip -> tip.getTitle()).collect(Collectors.toList());
         assertTrue(titles.contains(string));         
+    }
+
+    @Then("tip with link {string} can be found from the system") 
+    public void tipWithLinkCanBeFound(String link) throws Exception{
+        List<Tip> entries = tipService.getAll();
+        List<String> titles = entries.stream().map(tip -> tip.getLink()).collect(Collectors.toList());
+        assertTrue(titles.contains(link));
     }
 
     @Then("a list containing right items is shown")
