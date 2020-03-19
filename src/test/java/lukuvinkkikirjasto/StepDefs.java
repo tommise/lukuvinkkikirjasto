@@ -16,6 +16,7 @@ import lukuvinkkikirjasto.ui.IOService;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -52,7 +53,7 @@ public class StepDefs {
     }
 
     @Given("some tip items have been added") 
-    public void dataBaseHasBeenInitialized() {
+    public void dataBaseHasBeenInitialized() throws SQLException {
         testTips = new ArrayList<>();
         testTips.add(tipService.createTip("test-title1", "test-link1"));
         testTips.add(tipService.createTip("test-title2", "test-link2"));
