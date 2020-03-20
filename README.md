@@ -7,6 +7,10 @@
 
 [Sprintti 1](https://docs.google.com/spreadsheets/d/1UMzBbBumxvwz7_kkdy7kEW3knXUErZN63khtOkXKNxQ/edit#gid=0) 
 
+Sprintti 2
+
+Release, sprintti 2
+
 ## Dokumentaatio
 
 [Asennus- ja käyttöohjeet](https://github.com/tommise/lukuvinkkikirjasto/blob/master/documentation/user_instructions.md)
