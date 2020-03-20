@@ -18,23 +18,17 @@ public class Database {
     }
     
     public void createTables() throws SQLException {
-        
-        try (Connection connection = getConnection()) {
-            String tipTable = "CREATE TABLE IF NOT EXISTS Tip (\n"
-                +   "id INTEGER PRIMARY KEY,\n"
-                +   "title VARCHAR(50) NOT NULL,\n"
-                +   "link VARCHAR(50)\n"      
-                +   ");";
+        String tipTable = "CREATE TABLE IF NOT EXISTS Tip (\n"
+            +   "id INTEGER PRIMARY KEY,\n"
+            +   "title VARCHAR(50) NOT NULL,\n"
+            +   "link VARCHAR(50)\n"      
+            +   ");";
 
-            Statement statement = connection.createStatement();         
-            statement.execute(tipTable);
+        Connection connection = getConnection();
+        Statement statement = connection.createStatement();         
+        statement.execute(tipTable);
 
-            statement.close();
-            connection.close();
-        }  
-        
-        catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        statement.close();
+        connection.close();
     }
 }
