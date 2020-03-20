@@ -13,27 +13,13 @@ public class TipService {
         this.tipDao = tipDao;
     }
 
-    //TYÖN ALLA
     public List<Tip> getAll() throws SQLException {
         return tipDao.getAll();
     }
     
-    public Tip createTip(String title, String link) {
-        /*
-        if (!tipTitleIsValid(title)) {
-            return null;
-        }
-        */
-        try {
-            return tipDao.create(title, link);
-        } catch (SQLException e) {
-            return null; 
-        }       
+    public Tip createTip(String title, String link) throws SQLException {
+       return tipDao.create(title, link);
     }
 
-    /*
-    private boolean tipTitleIsValid(String title){
-        return title.length() > 0;
-    }
-    */
+    
 }

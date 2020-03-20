@@ -29,27 +29,32 @@ public class IOService {
         return commands;
     }    
     
-    public void runApp() throws SQLException {
+    public void runApp() {
         printInstructions();
         
-        while (true) {
-            io.print("Komento: "); 
-            String command = io.nextLine();
-            System.out.println("");
-            if (command.isEmpty()) {
-                break;
-            }
-            if (!commands.keySet().contains(command)) {
-                System.out.println("Komentoa ei tunnistettu.");
-                printInstructions();
-            }
-            if (command.equals("1")) {
-                createTip();
-            }
-            if (command.equals("2")) {
-                listAllTips();
-            }
-        }       
+        try {
+            
+            while (true) {
+                io.print("Komento: "); 
+                String command = io.nextLine();
+                System.out.println("");
+                if (command.isEmpty()) {
+                    break;
+                }
+                if (!commands.keySet().contains(command)) {
+                    System.out.println("Komentoa ei tunnistettu.");
+                    printInstructions();
+                }
+                if (command.equals("1")) {
+                    createTip();
+                }
+                if (command.equals("2")) {
+                    listAllTips();
+                }
+            }     
+        } catch (SQLException e) {
+            io.print("Tapahtui virhe. Ohjelma suljetaan. Yritä uudelleen myöhemmin!");
+        }
     }
     
     private void listAllTips() throws SQLException {
@@ -66,7 +71,7 @@ public class IOService {
         }
     }
     
-    private void createTip() {
+    private void createTip() throws SQLException {
         String title = null;
         while (title == null) {
             io.print("Otsikko: ");
@@ -97,13 +102,6 @@ public class IOService {
         }    
         io.print("");
     }
-    
-    
-    /*
-    private void createTip(String title, String link) {
-        tipService.createTip(title, link);
-    }
-    */
     
     public static void main(String[] args) throws Exception {
         Database db = new Database("jdbc:sqlite:vinkkitietokanta.db");

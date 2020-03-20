@@ -18,7 +18,7 @@ public class TipServiceTest {
         
         @Override
         public Tip create(String title, String link) throws SQLException {
-        throw new SQLException("error");
+            throw new SQLException("error");
         }
 
         @Override
@@ -39,14 +39,14 @@ public class TipServiceTest {
     }
 
     @Test
-    public void tipServiceReturnsTipObject() {
+    public void tipServiceReturnsTipObject() throws SQLException {
         Tip tip = tipService.createTip("title", "link");
         assertEquals("title", tip.getTitle());
         assertEquals("link", tip.getLink());
     }
 
-    @Test
-    public void tipServiceCatchesException() {
+    @Test(expected = SQLException.class)
+    public void tipServiceDoNotCatchException() throws SQLException {
         TipService service = new TipService(stubTipDaoThrowsException);
         Tip tip = service.createTip("title", "link");
         assertEquals(null, tip);
