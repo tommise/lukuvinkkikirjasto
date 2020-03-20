@@ -2,6 +2,7 @@
 package lukuvinkkikirjasto.dao;
 
 import java.sql.*;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 import lukuvinkkikirjasto.domain.Tip;
@@ -13,15 +14,18 @@ public class SqlTipDao implements TipDao {
     public SqlTipDao(Database database) {
         this.database = database;
     }
-       
+     
     @Override
-    public Tip create(String title, String link) throws SQLException {
+    public Tip create(Date date, String title, String link) throws SQLException {
         Connection connection = database.getConnection();  
         
-        PreparedStatement statement = connection.prepareStatement("INSERT INTO Tip (title, link) VALUES (?, ?)");
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO Tip (date, title, link) VALUES (?, ?, ?)");
 
-        statement.setString(1, title);
-        statement.setString(2, link);
+        java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+        
+        statement.setDate(1, sqlDate);
+        statement.setString(2, title);
+        statement.setString(3, link);
 
         statement.executeUpdate();
 
@@ -49,7 +53,7 @@ public class SqlTipDao implements TipDao {
             return null;
         }
         
-        Tip tip = new Tip(rs.getString("title"), rs.getString("link"), rs.getInt("id"));
+        Tip tip = new Tip(rs.getDate("date"), rs.getString("title"), rs.getString("link"), rs.getInt("id"));
         
         rs.close();
         statement.close();
@@ -69,7 +73,7 @@ public class SqlTipDao implements TipDao {
         ResultSet rs = statement.executeQuery();
         
         while (rs.next()) {
-            Tip t = new Tip(rs.getString("title"), rs.getString("link"), rs.getInt("id"));
+            Tip t = new Tip(rs.getDate("date"), rs.getString("title"), rs.getString("link"), rs.getInt("id"));
             tips.add(t);
         }
         
@@ -79,5 +83,7 @@ public class SqlTipDao implements TipDao {
         
         return tips;
     }
+
+    
     
 }

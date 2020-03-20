@@ -1,6 +1,8 @@
 package lukuvinkkikirjasto.ui;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -79,12 +81,17 @@ public class IOService {
             title = validateTitle(title);
         }
         io.print("Linkki: ");
-        String link = io.nextLine();        
-        tipService.createTip(title, link);
+        String link = io.nextLine();   
+        LocalDateTime now = LocalDateTime.now();
+        Date date = java.sql.Timestamp.valueOf(now);
+        tipService.createTip(date, title, link);
         
         io.print("Lukuvinkki lisatty!");
         io.print("");
     }
+    
+    //convertdateformat -method here
+    
     
     private String validateTitle(String input) {
         String trimmedInput = input.trim();

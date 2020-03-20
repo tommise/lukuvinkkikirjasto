@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import lukuvinkkikirjasto.domain.Tip;
 import org.junit.After;
@@ -33,15 +35,19 @@ public class SqlTipDaoTest {
 
     @Test
     public void creatingANewTipCreatesTheTip() throws Exception {
-        Tip newTip = this.tipDao.create("title", "link");
+        LocalDateTime now = LocalDateTime.now();
+        Date date = java.sql.Timestamp.valueOf(now);
+        Tip newTip = this.tipDao.create(date, "title", "link");
         
         assertNotNull(newTip);
     }
     
     @Test
     public void allNotesAreFetchedFromTheDatabase() throws Exception {
-        this.tipDao.create("title", "link");
-        this.tipDao.create("title2", "link2");
+        LocalDateTime now = LocalDateTime.now();
+        Date date = java.sql.Timestamp.valueOf(now);
+        this.tipDao.create(date, "title", "link");
+        this.tipDao.create(date, "title2", "link2");
         
         List<Tip> tipList = tipDao.getAll();
         assertEquals(2, tipList.size()); 

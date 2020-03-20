@@ -20,6 +20,7 @@ public class Database {
     public void createTables() throws SQLException {
         String tipTable = "CREATE TABLE IF NOT EXISTS Tip (\n"
             +   "id INTEGER PRIMARY KEY,\n"
+            +   "date DATE NOT NULL,\n"    
             +   "title VARCHAR(50) NOT NULL,\n"
             +   "link VARCHAR(50)\n"      
             +   ");";

@@ -1,7 +1,10 @@
+
 package lukuvinkkikirjasto.dao;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import lukuvinkkikirjasto.domain.Tip;
@@ -14,8 +17,8 @@ public class MockTipDao implements TipDao {
     }
 
     @Override
-    public Tip create(String title, String link) throws SQLException {
-        Tip tip = new Tip(title, link, 1);
+    public Tip create(Date date, String title, String link) throws SQLException {
+        Tip tip = new Tip(date, title, link, 1);
         tips.add(tip);
         return tip;
     }

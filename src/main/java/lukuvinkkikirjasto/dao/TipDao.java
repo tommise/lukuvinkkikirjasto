@@ -2,12 +2,13 @@
 package lukuvinkkikirjasto.dao;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import lukuvinkkikirjasto.domain.Tip;
 
 public interface TipDao {
     
-    Tip create(String title, String link) throws SQLException;
+    Tip create(Date date, String title, String link) throws SQLException;
     
     Tip findByTitle(String title) throws SQLException;
     

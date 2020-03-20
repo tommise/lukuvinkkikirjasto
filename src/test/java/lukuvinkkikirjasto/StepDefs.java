@@ -17,7 +17,9 @@ import lukuvinkkikirjasto.ui.IOService;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,9 +57,11 @@ public class StepDefs {
     @Given("some tip items have been added") 
     public void dataBaseHasBeenInitialized() throws SQLException {
         testTips = new ArrayList<>();
-        testTips.add(tipService.createTip("test-title1", "test-link1"));
-        testTips.add(tipService.createTip("test-title2", "test-link2"));
-        testTips.add(tipService.createTip("test-title3", "test-link3"));
+        LocalDateTime now = LocalDateTime.now();
+        Date date = java.sql.Timestamp.valueOf(now);
+        testTips.add(tipService.createTip(date, "test-title1", "test-link1"));
+        testTips.add(tipService.createTip(date, "test-title2", "test-link2"));
+        testTips.add(tipService.createTip(date, "test-title3", "test-link3"));
     }
 
     @Given("no tip items have been added")
