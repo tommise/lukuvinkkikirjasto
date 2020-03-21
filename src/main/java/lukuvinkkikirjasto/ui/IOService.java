@@ -81,10 +81,12 @@ public class IOService {
             title = validateTitle(title);
         }
         io.print("Linkki: ");
-        String link = io.nextLine();   
+        String link = io.nextLine();
+        io.print("Kuvaus: ");
+        String description = io.nextLine();   
         LocalDateTime now = LocalDateTime.now();
         Date date = java.sql.Timestamp.valueOf(now);
-        tipService.createTip(date, title, link);
+        tipService.createTip(date, title, link, description);
         
         io.print("Lukuvinkki lisatty!");
         io.print("");

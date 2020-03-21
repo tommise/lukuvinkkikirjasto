@@ -16,16 +16,17 @@ public class SqlTipDao implements TipDao {
     }
      
     @Override
-    public Tip create(Date date, String title, String link) throws SQLException {
+    public Tip create(Date date, String title, String link, String description) throws SQLException {
         Connection connection = database.getConnection();  
         
-        PreparedStatement statement = connection.prepareStatement("INSERT INTO Tip (date, title, link) VALUES (?, ?, ?)");
+        PreparedStatement statement = connection.prepareStatement("INSERT INTO Tip (date, title, link, description) VALUES (?, ?, ?, ?)");
 
         java.sql.Date sqlDate = new java.sql.Date(date.getTime());
         
         statement.setDate(1, sqlDate);
         statement.setString(2, title);
         statement.setString(3, link);
+        statement.setString(4, description);
 
         statement.executeUpdate();
 
@@ -53,7 +54,7 @@ public class SqlTipDao implements TipDao {
             return null;
         }
         
-        Tip tip = new Tip(rs.getDate("date"), rs.getString("title"), rs.getString("link"), rs.getInt("id"));
+        Tip tip = new Tip(rs.getDate("date"), rs.getString("title"), rs.getString("link"),  rs.getString("description"), rs.getInt("id"));
         
         rs.close();
         statement.close();
@@ -73,7 +74,7 @@ public class SqlTipDao implements TipDao {
         ResultSet rs = statement.executeQuery();
         
         while (rs.next()) {
-            Tip t = new Tip(rs.getDate("date"), rs.getString("title"), rs.getString("link"), rs.getInt("id"));
+            Tip t = new Tip(rs.getDate("date"), rs.getString("title"), rs.getString("link"),  rs.getString("description"), rs.getInt("id"));
             tips.add(t);
         }
         

@@ -22,7 +22,8 @@ public class Database {
             +   "id INTEGER PRIMARY KEY,\n"
             +   "date DATE NOT NULL,\n"    
             +   "title VARCHAR(50) NOT NULL,\n"
-            +   "link VARCHAR(50)\n"      
+            +   "link VARCHAR(50),\n"
+            +   "description VARCHAR(50)\n"      
             +   ");";
 
         Connection connection = getConnection();

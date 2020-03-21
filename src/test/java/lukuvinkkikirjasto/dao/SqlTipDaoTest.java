@@ -37,17 +37,18 @@ public class SqlTipDaoTest {
     public void creatingANewTipCreatesTheTip() throws Exception {
         LocalDateTime now = LocalDateTime.now();
         Date date = java.sql.Timestamp.valueOf(now);
-        Tip newTip = this.tipDao.create(date, "title", "link");
+        Tip newTip = this.tipDao.create(date, "title", "link", "test-description");
         
         assertNotNull(newTip);
+        assertEquals("test-description", newTip.getDescription());
     }
     
     @Test
     public void allNotesAreFetchedFromTheDatabase() throws Exception {
         LocalDateTime now = LocalDateTime.now();
         Date date = java.sql.Timestamp.valueOf(now);
-        this.tipDao.create(date, "title", "link");
-        this.tipDao.create(date, "title2", "link2");
+        this.tipDao.create(date, "title", "link", "test-decription");
+        this.tipDao.create(date, "title2", "link2", "test-description2");
         
         List<Tip> tipList = tipDao.getAll();
         assertEquals(2, tipList.size()); 

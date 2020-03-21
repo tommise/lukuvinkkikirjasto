@@ -54,6 +54,11 @@ public class StepDefs {
         inputLines.add("1");
     }
 
+    @Given("some tips with descriptions have been added")
+    public void someTipsWithDescriptionsHaveBeenAdded() throws SQLException{
+        dataBaseHasBeenInitialized();
+    }
+
     @Given("some tip items have been added") 
     public void dataBaseHasBeenInitialized() throws SQLException {
         testTips = new ArrayList<>();
@@ -84,7 +89,7 @@ public class StepDefs {
         inputLines.add(link);
     }
 
-    @When("a description {string} is entered")
+    @When("description {string} is entered")
     public void descriptionIsEntered(String description) {
         inputLines.add(description);
     }
@@ -94,7 +99,6 @@ public class StepDefs {
         stubIO = new StubIO(inputLines);        
         runApp();
         assertTrue(stubIO.getPrints().contains(expectedResponse));
-        System.out.print(stubIO.getPrints());
     }
 
     @Then("tip with title {string} can be found from the system")
@@ -114,12 +118,22 @@ public class StepDefs {
     @Then("tip with description {string} can be found from the system") 
     public void tipWithDescriptionCanBeFound(String description) throws Exception{
         List<Tip> entries = tipService.getAll();
+        System.out.println(entries);
         List<String> desciptions = entries.stream().map(tip -> tip.getDescription()).collect(Collectors.toList());
         assertTrue(desciptions.contains(description));
     }
 
     @Then("a list containing right items is shown")
     public void aListContainingRightItemsIsShown() throws Exception{
+        stubIO = new StubIO(inputLines);        
+        runApp();
+        testTips.forEach(tip -> {
+            assertTrue(stubIO.getPrints().contains(tip.toString()));
+        });
+    }
+
+    @Then("a list containing items with right descriptions is shown")
+    public void aListContainingItemsWithRightDescriptionsIsShown() throws Exception {
         stubIO = new StubIO(inputLines);        
         runApp();
         testTips.forEach(tip -> {

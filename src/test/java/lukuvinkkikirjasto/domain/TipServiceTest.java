@@ -19,7 +19,7 @@ public class TipServiceTest {
     TipDao stubTipDaoThrowsException = new TipDao(){
         
         @Override
-        public Tip create(Date date, String title, String link) throws SQLException {
+        public Tip create(Date date, String title, String link, String description) throws SQLException {
             throw new SQLException("error");
         }
 
@@ -44,10 +44,11 @@ public class TipServiceTest {
     public void tipServiceReturnsTipObject() throws SQLException {
         LocalDateTime now = LocalDateTime.now();
         Date date = java.sql.Timestamp.valueOf(now);
-        Tip tip = tipService.createTip(date,"title", "link");
+        Tip tip = tipService.createTip(date,"title", "link", "test-description");
         assertEquals(date, tip.getDate());
         assertEquals("title", tip.getTitle());
         assertEquals("link", tip.getLink());
+        assertEquals("test-description", tip.getDescription());
     }
 
     @Test(expected = SQLException.class)
@@ -55,7 +56,7 @@ public class TipServiceTest {
         TipService service = new TipService(stubTipDaoThrowsException);
         LocalDateTime now = LocalDateTime.now();
         Date date = java.sql.Timestamp.valueOf(now);
-        Tip tip = service.createTip(date, "title", "link");
+        Tip tip = service.createTip(date, "title", "link", "description");
         assertEquals(null, tip);
     }
 
@@ -63,8 +64,8 @@ public class TipServiceTest {
     public void getAllReturnsAddedTips() throws SQLException {
         LocalDateTime now = LocalDateTime.now();
         Date date = java.sql.Timestamp.valueOf(now);
-        tipService.createTip(date, "title1", "link1");
-        tipService.createTip(date, "title2", "link2");
+        tipService.createTip(date, "title1", "link1", "test-decription1");
+        tipService.createTip(date, "title2", "link2", "test-decription2");
         List<Tip> tips = tipService.getAll();
         assertEquals(2, tips.size());
         assertTrue(tips.get(0).getClass() == Tip.class);

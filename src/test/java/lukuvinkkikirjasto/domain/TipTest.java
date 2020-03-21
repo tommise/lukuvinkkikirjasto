@@ -11,8 +11,9 @@ public class TipTest {
     public void toStringContainsTitleAndLink(){
         LocalDateTime now = LocalDateTime.now();
         Date date = java.sql.Timestamp.valueOf(now);
-        Tip tip = new Tip(date, "test-title", "test-link", 1);
+        Tip tip = new Tip(date, "test-title", "test-link", "test-description", 1);
         assertTrue(tip.toString().contains("test-title"));
         assertTrue(tip.toString().contains("test-link"));
+        assertTrue(tip.toString().contains("test-description"));
     }
 }
