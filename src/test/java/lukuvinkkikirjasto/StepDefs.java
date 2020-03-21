@@ -59,9 +59,9 @@ public class StepDefs {
         testTips = new ArrayList<>();
         LocalDateTime now = LocalDateTime.now();
         Date date = java.sql.Timestamp.valueOf(now);
-        testTips.add(tipService.createTip(date, "test-title1", "test-link1"));
-        testTips.add(tipService.createTip(date, "test-title2", "test-link2"));
-        testTips.add(tipService.createTip(date, "test-title3", "test-link3"));
+        testTips.add(tipService.createTip(date, "test-title1", "test-link1", "test-desciption1"));
+        testTips.add(tipService.createTip(date, "test-title2", "test-link2", "test-desciption2"));
+        testTips.add(tipService.createTip(date, "test-title3", "test-link3", "test-desciption3"));
     }
 
     @Given("no tip items have been added")
@@ -84,6 +84,11 @@ public class StepDefs {
         inputLines.add(link);
     }
 
+    @When("a description {string} is entered")
+    public void descriptionIsEntered(String description) {
+        inputLines.add(description);
+    }
+
     @Then("system will respond with {string}")
     public void systemWillRespondWith(String expectedResponse) throws Exception{
         stubIO = new StubIO(inputLines);        
@@ -104,6 +109,13 @@ public class StepDefs {
         List<Tip> entries = tipService.getAll();
         List<String> titles = entries.stream().map(tip -> tip.getLink()).collect(Collectors.toList());
         assertTrue(titles.contains(link));
+    }
+
+    @Then("tip with description {string} can be found from the system") 
+    public void tipWithDescriptionCanBeFound(String description) throws Exception{
+        List<Tip> entries = tipService.getAll();
+        List<String> desciptions = entries.stream().map(tip -> tip.getDescription()).collect(Collectors.toList());
+        assertTrue(desciptions.contains(description));
     }
 
     @Then("a list containing right items is shown")
