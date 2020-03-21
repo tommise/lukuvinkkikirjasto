@@ -18,8 +18,8 @@ public class TipService {
         return tipDao.getAll();
     }
     
-    public Tip createTip(Date date, String title, String link) throws SQLException {
-       return tipDao.create(date, title, link);
+    public Tip createTip(Date date, String title, String link, String description) throws SQLException {
+       return tipDao.create(date, title, link, description);
     }
 
     

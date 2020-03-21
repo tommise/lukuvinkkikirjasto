@@ -54,14 +54,19 @@ public class StepDefs {
         inputLines.add("1");
     }
 
+    @Given("some tips with descriptions have been added")
+    public void someTipsWithDescriptionsHaveBeenAdded() throws SQLException{
+        dataBaseHasBeenInitialized();
+    }
+
     @Given("some tip items have been added") 
     public void dataBaseHasBeenInitialized() throws SQLException {
         testTips = new ArrayList<>();
         LocalDateTime now = LocalDateTime.now();
         Date date = java.sql.Timestamp.valueOf(now);
-        testTips.add(tipService.createTip(date, "test-title1", "test-link1"));
-        testTips.add(tipService.createTip(date, "test-title2", "test-link2"));
-        testTips.add(tipService.createTip(date, "test-title3", "test-link3"));
+        testTips.add(tipService.createTip(date, "test-title1", "test-link1", "test-desciption1"));
+        testTips.add(tipService.createTip(date, "test-title2", "test-link2", "test-desciption2"));
+        testTips.add(tipService.createTip(date, "test-title3", "test-link3", "test-desciption3"));
     }
 
     @Given("no tip items have been added")
@@ -84,12 +89,16 @@ public class StepDefs {
         inputLines.add(link);
     }
 
+    @When("description {string} is entered")
+    public void descriptionIsEntered(String description) {
+        inputLines.add(description);
+    }
+
     @Then("system will respond with {string}")
     public void systemWillRespondWith(String expectedResponse) throws Exception{
         stubIO = new StubIO(inputLines);        
         runApp();
         assertTrue(stubIO.getPrints().contains(expectedResponse));
-        System.out.print(stubIO.getPrints());
     }
 
     @Then("tip with title {string} can be found from the system")
@@ -106,8 +115,25 @@ public class StepDefs {
         assertTrue(titles.contains(link));
     }
 
+    @Then("tip with description {string} can be found from the system") 
+    public void tipWithDescriptionCanBeFound(String description) throws Exception{
+        List<Tip> entries = tipService.getAll();
+        System.out.println(entries);
+        List<String> desciptions = entries.stream().map(tip -> tip.getDescription()).collect(Collectors.toList());
+        assertTrue(desciptions.contains(description));
+    }
+
     @Then("a list containing right items is shown")
     public void aListContainingRightItemsIsShown() throws Exception{
+        stubIO = new StubIO(inputLines);        
+        runApp();
+        testTips.forEach(tip -> {
+            assertTrue(stubIO.getPrints().contains(tip.toString()));
+        });
+    }
+
+    @Then("a list containing items with right descriptions is shown")
+    public void aListContainingItemsWithRightDescriptionsIsShown() throws Exception {
         stubIO = new StubIO(inputLines);        
         runApp();
         testTips.forEach(tip -> {

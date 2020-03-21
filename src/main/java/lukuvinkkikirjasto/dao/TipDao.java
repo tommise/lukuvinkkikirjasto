@@ -8,7 +8,7 @@ import lukuvinkkikirjasto.domain.Tip;
 
 public interface TipDao {
     
-    Tip create(Date date, String title, String link) throws SQLException;
+    Tip create(Date date, String title, String link, String description) throws SQLException;
     
     Tip findByTitle(String title) throws SQLException;
     

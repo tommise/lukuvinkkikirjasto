@@ -4,3 +4,7 @@ build/
 /vinkkitietokanta.db
 bin/
 /vinkkitietokanta-test.db
+.classpath
+/.project
+/.settings
+/.vscode

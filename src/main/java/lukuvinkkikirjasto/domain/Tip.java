@@ -10,12 +10,14 @@ public class Tip {
     private Date date;
     private String title;
     private String link;
+    private String description;
     private int id;
     
-    public Tip (Date date, String title, String link, int id) {
+    public Tip (Date date, String title, String link, String description, int id) {
         this.date = date;
         this.title = title;
         this.link = link;
+        this.description = description;
         this.id = id;
     }
     
@@ -34,6 +36,10 @@ public class Tip {
     public Date getDate() {
         return this.date;
     }
+
+    public String getDescription() {
+        return this.description;
+    }
     
     @Override
     public String toString() {
@@ -41,8 +47,10 @@ public class Tip {
         SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/YYYY HH:mm");
         String dateString = sdf.format(date);
         
-        return "Otsikko: " + this.title + "\n" + "Linkki: " + this.link + "\n"
-                + "Tallennettu: " + dateString;
+        return  "Otsikko: " + this.title + "\n" + 
+                "Linkki: " + this.link + "\n" +
+                "Tallennettu: " + dateString + "\n" +
+                "Kuvaus: " + this.description;
     }
 }
 /*

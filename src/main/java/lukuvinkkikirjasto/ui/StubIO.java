@@ -16,7 +16,6 @@ public class StubIO implements IO {
     @Override
     public String nextLine() {
         if(index < lines.size()) {
-            System.out.println(lines.get(index));
             return lines.get(index++);
         }
         return "";        
@@ -25,7 +24,6 @@ public class StubIO implements IO {
     @Override
     public void print(String line) {
         prints.add(line.trim());
-        System.out.println(line);
     }
 
     public List<String> getPrints() {
