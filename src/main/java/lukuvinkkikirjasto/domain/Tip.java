@@ -43,7 +43,6 @@ public class Tip {
     
     @Override
     public String toString() {
-        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/YYYY HH:mm");
         String dateString = sdf.format(date);
         
@@ -53,8 +52,3 @@ public class Tip {
                 "Kuvaus: " + this.description;
     }
 }
-/*
-DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        
-        return "Date: " + this.date.format(formatter)
-*/
