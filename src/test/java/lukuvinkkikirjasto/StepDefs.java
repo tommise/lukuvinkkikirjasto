@@ -124,7 +124,7 @@ public class StepDefs {
     }
 
     @Then("a list containing right items is shown")
-    public void aListContainingRightItemsIsShown() throws Exception{
+    public void aListContainingRightItemsIsShown() throws Exception {
         stubIO = new StubIO(inputLines);        
         runApp();
         testTips.forEach(tip -> {
@@ -134,6 +134,15 @@ public class StepDefs {
 
     @Then("a list containing items with right descriptions is shown")
     public void aListContainingItemsWithRightDescriptionsIsShown() throws Exception {
+        stubIO = new StubIO(inputLines);        
+        runApp();
+        testTips.forEach(tip -> {
+            assertTrue(stubIO.getPrints().contains(tip.toString()));
+        });
+    }
+    
+    @Then("a list containing items with dates is shown")
+    public void aListContainingItemsWithDatesIsShown() throws Exception {
         stubIO = new StubIO(inputLines);        
         runApp();
         testTips.forEach(tip -> {
