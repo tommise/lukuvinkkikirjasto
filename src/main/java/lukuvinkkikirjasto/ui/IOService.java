@@ -28,6 +28,7 @@ public class IOService {
         TreeMap commands = new TreeMap<>();
         commands.put("1", "1: luo uusi lukuvinkki");
         commands.put("2", "2: tarkastele vinkkejä");
+        commands.put("x", "x: lopeta");
         return commands;
     }    
     
@@ -53,8 +54,12 @@ public class IOService {
                 if (command.equals("2")) {
                     listAllTips();
                 }
+                if (command.equals("x")) {
+                    break;
+                }
             }     
         } catch (SQLException e) {
+            io.print(e.getMessage());
             io.print("Tapahtui virhe. Ohjelma suljetaan. Yritä uudelleen myöhemmin!");
         }
     }
@@ -83,17 +88,20 @@ public class IOService {
         io.print("Linkki: ");
         String link = io.nextLine();
         io.print("Kuvaus: ");
-        String description = io.nextLine();   
-        LocalDateTime now = LocalDateTime.now();
-        Date date = java.sql.Timestamp.valueOf(now);
-        tipService.createTip(date, title, link, description);
+        String description = io.nextLine();  
+        
+        tipService.createTip(currentTime(), title, link, description);
         
         io.print("Lukuvinkki lisatty!");
         io.print("");
     }
     
-    //convertdateformat -method here
-    
+    private Date currentTime() {
+        LocalDateTime now = LocalDateTime.now();
+        Date date = java.sql.Timestamp.valueOf(now);
+        
+        return date;
+    }
     
     private String validateTitle(String input) {
         String trimmedInput = input.trim();
