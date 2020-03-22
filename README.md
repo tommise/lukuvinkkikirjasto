@@ -7,7 +7,7 @@
 
 [Sprintti 1](https://docs.google.com/spreadsheets/d/1UMzBbBumxvwz7_kkdy7kEW3knXUErZN63khtOkXKNxQ/edit#gid=0) 
 
-[Sprintti 2](https://docs.google.com/spreadsheets/d/1UMzBbBumxvwz7_kkdy7kEW3knXUErZN63khtOkXKNxQ/edit?usp=sharing)
+[Sprintti 2](https://docs.google.com/spreadsheets/d/1UMzBbBumxvwz7_kkdy7kEW3knXUErZN63khtOkXKNxQ/edit#gid=1806709844)
 
 Release, sprintti 2
 
