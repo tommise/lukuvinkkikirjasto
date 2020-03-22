@@ -35,11 +35,13 @@ public class SqlTipDaoTest {
 
     @Test
     public void creatingANewTipCreatesTheTip() throws Exception {
-        LocalDateTime now = LocalDateTime.now();
-        Date date = java.sql.Timestamp.valueOf(now);
+        Date date = new Date();
         Tip newTip = this.tipDao.create(date, "title", "link", "test-description");
         
         assertNotNull(newTip);
+        assertEquals(date, newTip.getDate());
+        assertEquals("title", newTip.getTitle());
+        assertEquals("link", newTip.getLink());
         assertEquals("test-description", newTip.getDescription());
     }
     
