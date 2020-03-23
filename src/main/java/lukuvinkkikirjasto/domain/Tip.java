@@ -4,7 +4,7 @@ package lukuvinkkikirjasto.domain;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Tip {
+public class Tip implements Comparable<Tip> {
     
     private Date date;
     private String title;
@@ -49,5 +49,10 @@ public class Tip {
                 "Linkki: " + this.link + "\n" +
                 "Tallennettu: " + dateString + "\n" +
                 "Kuvaus: " + this.description;
+    }
+
+    @Override
+    public int compareTo(Tip t) {
+        return t.getDate().compareTo(this.date);
     }
 }

@@ -2,6 +2,7 @@
 package lukuvinkkikirjasto.domain;
 
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +16,10 @@ public class TipService {
     }
 
     public List<Tip> getAll() throws SQLException {
-        return tipDao.getAll();
+        List<Tip> tips = tipDao.getAll();
+        Collections.sort(tips);
+        //return tipDao.getAll();
+        return tips;
     }
     
     public Tip createTip(Date date, String title, String link, String description) throws SQLException {
