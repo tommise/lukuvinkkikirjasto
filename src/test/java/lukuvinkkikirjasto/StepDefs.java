@@ -94,9 +94,15 @@ public class StepDefs {
         inputLines.add(description);
     }
 
+    @When("new tip fields are filled")
+    public void newTipFieldsAreFilled() {
+        inputLines.add("title");
+        inputLines.add("link");
+        inputLines.add("description");
+    }
+
     @Then("system will respond with {string}")
     public void systemWillRespondWith(String expectedResponse) throws Exception{
-        stubIO = new StubIO(inputLines);        
         runApp();
         assertTrue(stubIO.getPrints().contains(expectedResponse));
     }
@@ -118,14 +124,19 @@ public class StepDefs {
     @Then("tip with description {string} can be found from the system") 
     public void tipWithDescriptionCanBeFound(String description) throws Exception{
         List<Tip> entries = tipService.getAll();
-        System.out.println(entries);
         List<String> desciptions = entries.stream().map(tip -> tip.getDescription()).collect(Collectors.toList());
         assertTrue(desciptions.contains(description));
     }
 
+    @Then("the tip is saved with timestamp")
+    public void theTipIsSavedWithRightTimestamp() throws Exception {
+        runApp();
+        List<Tip> entries = tipService.getAll();
+        assertTrue(entries.get(0).getDate().getClass() == java.sql.Date.class);
+    }
+
     @Then("a list containing right items is shown")
-    public void aListContainingRightItemsIsShown() throws Exception {
-        stubIO = new StubIO(inputLines);        
+    public void aListContainingRightItemsIsShown() throws Exception {        
         runApp();
         testTips.forEach(tip -> {
             assertTrue(stubIO.getPrints().contains(tip.toString()));
@@ -133,24 +144,17 @@ public class StepDefs {
     }
 
     @Then("a list containing items with right descriptions is shown")
-    public void aListContainingItemsWithRightDescriptionsIsShown() throws Exception {
-        stubIO = new StubIO(inputLines);        
-        runApp();
-        testTips.forEach(tip -> {
-            assertTrue(stubIO.getPrints().contains(tip.toString()));
-        });
+    public void aListContainingItemsWithRightDescriptionsIsShown() throws Exception {        
+        aListContainingRightItemsIsShown();
     }
     
     @Then("a list containing items with dates is shown")
-    public void aListContainingItemsWithDatesIsShown() throws Exception {
-        stubIO = new StubIO(inputLines);        
-        runApp();
-        testTips.forEach(tip -> {
-            assertTrue(stubIO.getPrints().contains(tip.toString()));
-        });
+    public void aListContainingItemsWithDatesIsShown() throws Exception {       
+        aListContainingRightItemsIsShown();
     }
 
     private void runApp() throws Exception {
+        stubIO = new StubIO(inputLines);
         IOService ioService = new IOService(stubIO, tipService);
         ioService.runApp();
     }
