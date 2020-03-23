@@ -1,11 +1,9 @@
 
 package lukuvinkkikirjasto.dao;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import lukuvinkkikirjasto.domain.Tip;
@@ -23,8 +21,7 @@ public class SqlTipDaoTest {
     @Before
     public void setUp() throws Exception {
        database = new Database("jdbc:sqlite:vinkkitietokanta-test.db"); 
-       database.createTables();
-        
+       database.createTables();        
        this.tipDao = new SqlTipDao(database);
     }
 
@@ -44,13 +41,17 @@ public class SqlTipDaoTest {
         assertEquals("link", newTip.getLink());
         assertEquals("test-description", newTip.getDescription());
     }
+
+    @Test
+    public void findByTitleReturnsNullIfNoData() throws Exception{
+        Tip newTip = this.tipDao.findByTitle("xxxxxxxxxxxtitle");
+        assertEquals(null, newTip);
+    }
     
     @Test
     public void allNotesAreFetchedFromTheDatabase() throws Exception {
-        LocalDateTime now = LocalDateTime.now();
-        Date date = java.sql.Timestamp.valueOf(now);
-        this.tipDao.create(date, "title", "link", "test-decription");
-        this.tipDao.create(date, "title2", "link2", "test-description2");
+        this.tipDao.create(new Date(), "title", "link", "test-decription");
+        this.tipDao.create(new Date(), "title2", "link2", "test-description2");
         
         List<Tip> tipList = tipDao.getAll();
         assertEquals(2, tipList.size()); 
