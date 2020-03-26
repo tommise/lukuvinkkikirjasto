@@ -26,9 +26,24 @@ public class Database {
             +   "description VARCHAR(50)\n"      
             +   ");";
 
+        String tagTable = "CREATE TABLE IF NOT EXISTS Tag (\n"
+            + "id INTEGER PRIMARY KEY,\n"
+            + "tag VARCHAR(50)\n"
+            + ");";
+
+        String tipTagTable = "CREATE TABLE IF NOT EXISTS Tip (\n"
+            + "tipid INTEGER NOT NULL,\n"
+            + "tagid INTEGER NOT NULL,\n"
+            + "FOREIGN KEY(tipid) REFERENCES Tip(id),"
+            + "FOREIGN KEY(tagid) REFERENCES Tag(id)"
+            + ");";
+
         Connection connection = getConnection();
         Statement statement = connection.createStatement();         
         statement.execute(tipTable);
+        statement.execute(tagTable);
+        statement.execute(tipTagTable);
+
 
         statement.close();
         connection.close();
