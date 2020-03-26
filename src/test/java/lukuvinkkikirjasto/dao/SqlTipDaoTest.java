@@ -1,13 +1,13 @@
 
 package lukuvinkkikirjasto.dao;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Date;
 import java.util.List;
+
+import lukuvinkkikirjasto.domain.Tag;
 import lukuvinkkikirjasto.domain.Tip;
-import org.junit.After;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
@@ -20,26 +20,30 @@ public class SqlTipDaoTest {
     
     @Before
     public void setUp() throws Exception {
+       Files.deleteIfExists(Paths.get("vinkkitietokanta-test.db"));
        database = new Database("jdbc:sqlite:vinkkitietokanta-test.db"); 
        database.createTables();        
        this.tipDao = new SqlTipDao(database);
-    }
-
-    @After
-    public void cleanup() throws IOException {
-        Files.deleteIfExists(Paths.get("vinkkitietokanta-test.db"));
     }
 
     @Test
     public void creatingANewTipCreatesTheTip() throws Exception {
         Date date = new Date();
         Tip newTip = this.tipDao.create(date, "title", "link", "test-description");
-        
         assertNotNull(newTip);
         assertEquals(date, newTip.getDate());
         assertEquals("title", newTip.getTitle());
         assertEquals("link", newTip.getLink());
         assertEquals("test-description", newTip.getDescription());
+    }
+
+    @Test
+    public void TipFromDatabaseHasTags() throws Exception {
+        Date date = new Date();
+        Tip newTip = this.tipDao.create(date, "title", "link", "test-description");
+        Tag newTag = new SqlTagDao(database).getOrCreate("tagi");
+        this.tipDao.addTagForTip(newTip.getId(), newTag.getId());
+        assertEquals("tagi", tipDao.findByTitle("title").getTags().get(0).getTag());
     }
 
     @Test
