@@ -31,7 +31,7 @@ public class Database {
             + "tag VARCHAR(50)\n"
             + ");";
 
-        String tipTagTable = "CREATE TABLE IF NOT EXISTS Tip (\n"
+        String tipTagTable = "CREATE TABLE IF NOT EXISTS TipTag (\n"
             + "tipid INTEGER NOT NULL,\n"
             + "tagid INTEGER NOT NULL,\n"
             + "FOREIGN KEY(tipid) REFERENCES Tip(id),"

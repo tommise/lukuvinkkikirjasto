@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
+import lukuvinkkikirjasto.domain.Tag;
 import lukuvinkkikirjasto.domain.Tip;
 
 public class MockTipDao implements TipDao {
@@ -15,7 +16,7 @@ public class MockTipDao implements TipDao {
     }
 
     @Override
-    public Tip create(Date date, String title,String link, String description) throws SQLException {
+    public Tip create(Date date, String title, String link, String description) throws SQLException {
         Tip tip = new Tip(date, title, link, description, 1);
         tips.add(tip);
         return tip;
@@ -24,10 +25,19 @@ public class MockTipDao implements TipDao {
     @Override
     public List<Tip> getAll() throws SQLException {
         return tips;
-    }    
+    }
 
     @Override
     public Tip findByTitle(String title) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); // To change body of generated methods, choose
+                                                                       // Tools | Templates.
     }
+
+    @Override
+    public void addTagForTip(int tipId, int tagId) throws SQLException {
+        // TODO Auto-generated method stub
+
+    }
+
+
 }
