@@ -90,9 +90,11 @@ public class IOService {
         io.print("Linkki: ");
         String link = io.nextLine();
         io.print("Kuvaus: ");
-        String description = io.nextLine();  
+        String description = io.nextLine(); 
+        io.print("tagit: ");
+        String tags = io.nextLine();  
         
-        tipService.createTip(currentTime(), title, link, description, "tagi");
+        tipService.createTip(currentTime(), title, link, description, tags);
         
         io.print("Lukuvinkki lisatty!");
         io.print("");

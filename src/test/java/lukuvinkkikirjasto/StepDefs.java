@@ -10,6 +10,7 @@ import static org.junit.Assert.*;
 import lukuvinkkikirjasto.dao.Database;
 import lukuvinkkikirjasto.dao.SqlTagDao;
 import lukuvinkkikirjasto.dao.SqlTipDao;
+import lukuvinkkikirjasto.domain.Tag;
 import lukuvinkkikirjasto.domain.Tip;
 import lukuvinkkikirjasto.domain.TipService;
 import lukuvinkkikirjasto.ui.StubIO;
@@ -22,6 +23,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 
@@ -95,11 +97,17 @@ public class StepDefs {
         inputLines.add(description);
     }
 
+    @When("tag {string} is entered")
+    public void TagIsEntered(String tag) {
+        inputLines.add(tag);
+    }
+
     @When("new tip fields are filled")
     public void newTipFieldsAreFilled() {
         inputLines.add("title");
         inputLines.add("link");
         inputLines.add("description");
+        inputLines.add("tag");
     }
 
     @Then("system will respond with {string}")
@@ -127,6 +135,12 @@ public class StepDefs {
         List<Tip> entries = tipService.getAll();
         List<String> desciptions = entries.stream().map(tip -> tip.getDescription()).collect(Collectors.toList());
         assertTrue(desciptions.contains(description));
+    }
+
+    @Then("tip with tag {string} can be found from the system") 
+    public void tipWithTagCanBeFound(String tag) throws Exception{
+        List<Tip> entries = tipService.getAll();        
+        assertTrue(entries.get(0).getTags().get(0).getTag().contains(tag));
     }
 
     @Then("the tip is saved with timestamp")
