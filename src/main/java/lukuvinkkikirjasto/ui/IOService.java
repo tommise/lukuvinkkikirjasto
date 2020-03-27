@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import lukuvinkkikirjasto.dao.Database;
+import lukuvinkkikirjasto.dao.SqlTagDao;
 import lukuvinkkikirjasto.dao.SqlTipDao;
+import lukuvinkkikirjasto.dao.TagDao;
 import lukuvinkkikirjasto.dao.TipDao;
 import lukuvinkkikirjasto.domain.Tip;
 import lukuvinkkikirjasto.domain.TipService;
@@ -88,9 +90,11 @@ public class IOService {
         io.print("Linkki: ");
         String link = io.nextLine();
         io.print("Kuvaus: ");
-        String description = io.nextLine();  
+        String description = io.nextLine(); 
+        io.print("tagit: ");
+        String tags = io.nextLine();  
         
-        tipService.createTip(currentTime(), title, link, description);
+        tipService.createTip(currentTime(), title, link, description, tags);
         
         io.print("Lukuvinkki lisatty!");
         io.print("");
@@ -123,8 +127,9 @@ public class IOService {
     public static void main(String[] args) throws Exception {
         Database db = new Database("jdbc:sqlite:vinkkitietokanta.db");
         db.createTables();
-        TipDao tipDao = new SqlTipDao(db);            
-        TipService tipService = new TipService(tipDao);
+        TipDao tipDao = new SqlTipDao(db);
+        TagDao tagDao = new SqlTagDao(db);            
+        TipService tipService = new TipService(tipDao, tagDao);
         IOService ioservice = new IOService(new KonsoliIO(), tipService);
         ioservice.runApp();  
     }

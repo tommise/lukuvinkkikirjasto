@@ -16,9 +16,12 @@ public class TipTest {
         String dateString = sdf.format(date);
         
         Tip tip = new Tip(date, "test-title", "test-link", "test-description", 1);
+        tip.addTag(new Tag(1, "test-tag"));
+        System.out.println(tip.toString());
         assertTrue(tip.toString().contains(dateString));
         assertTrue(tip.toString().contains("test-title"));
         assertTrue(tip.toString().contains("test-link"));
         assertTrue(tip.toString().contains("test-description"));
+        assertTrue(tip.toString().contains("test-tag"));
     }
 }

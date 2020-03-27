@@ -64,7 +64,8 @@ public class Tip implements Comparable<Tip> {
         return  "Otsikko: " + this.title + "\n" + 
                 "Linkki: " + this.link + "\n" +
                 "Tallennettu: " + dateString + "\n" +
-                "Kuvaus: " + this.description;
+                "Kuvaus: " + this.description + "\n" +
+                "Tagit: " + this.tags;
     }
 
     @Override
