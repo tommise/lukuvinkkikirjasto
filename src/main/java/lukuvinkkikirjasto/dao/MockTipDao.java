@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
-import lukuvinkkikirjasto.domain.Tag;
 import lukuvinkkikirjasto.domain.Tip;
 
 public class MockTipDao implements TipDao {

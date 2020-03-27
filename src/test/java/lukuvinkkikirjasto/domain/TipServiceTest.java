@@ -3,6 +3,7 @@ package lukuvinkkikirjasto.domain;
 import org.junit.*;
 
 import lukuvinkkikirjasto.dao.MockTipDao;
+import lukuvinkkikirjasto.dao.TagDao;
 import lukuvinkkikirjasto.dao.TipDao;
 
 import static org.junit.Assert.*;
@@ -15,6 +16,16 @@ import java.util.List;
 
 public class TipServiceTest {
     TipService tipService;
+
+    TagDao stubTagDao = new TagDao() {
+        public Tag getOrCreate(String tag) throws SQLException {
+            return new Tag(1, tag);
+        };
+        public Tag find(String tag) throws SQLException {
+            return new Tag(1, tag);
+        };
+        
+    };
 
     TipDao stubTipDaoThrowsException = new TipDao(){
         
@@ -45,14 +56,14 @@ public class TipServiceTest {
     @Before
     public void init() {
         TipDao stubTipDao = new MockTipDao(new ArrayList<>());
-        this.tipService = new TipService(stubTipDao);
+        this.tipService = new TipService(stubTipDao, stubTagDao);
     }
 
     @Test
     public void tipServiceReturnsTipObject() throws SQLException {
         LocalDateTime now = LocalDateTime.now();
         Date date = java.sql.Timestamp.valueOf(now);
-        Tip tip = tipService.createTip(date,"title", "link", "test-description");
+        Tip tip = tipService.createTip(date,"title", "link", "test-description", "test-tag");
         assertEquals(date, tip.getDate());
         assertEquals("title", tip.getTitle());
         assertEquals("link", tip.getLink());
@@ -61,10 +72,10 @@ public class TipServiceTest {
 
     @Test(expected = SQLException.class)
     public void tipServiceDoNotCatchException() throws SQLException {
-        TipService service = new TipService(stubTipDaoThrowsException);
+        TipService service = new TipService(stubTipDaoThrowsException, stubTagDao);
         LocalDateTime now = LocalDateTime.now();
         Date date = java.sql.Timestamp.valueOf(now);
-        Tip tip = service.createTip(date, "title", "link", "description");
+        Tip tip = service.createTip(date, "title", "link", "description", "tagi");
         assertEquals(null, tip);
     }
 
@@ -72,8 +83,8 @@ public class TipServiceTest {
     public void getAllReturnsAddedTips() throws SQLException {
         LocalDateTime now = LocalDateTime.now();
         Date date = java.sql.Timestamp.valueOf(now);
-        tipService.createTip(date, "title1", "link1", "test-decription1");
-        tipService.createTip(date, "title2", "link2", "test-decription2");
+        tipService.createTip(date, "title1", "link1", "test-decription1", "tagi");
+        tipService.createTip(date, "title2", "link2", "test-decription2", "tagi");
         List<Tip> tips = tipService.getAll();
         assertEquals(2, tips.size());
         assertTrue(tips.get(0).getClass() == Tip.class);

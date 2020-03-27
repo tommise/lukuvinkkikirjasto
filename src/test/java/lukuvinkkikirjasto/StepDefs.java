@@ -8,6 +8,7 @@ import io.cucumber.java.en.Then;
 import static org.junit.Assert.*;
 
 import lukuvinkkikirjasto.dao.Database;
+import lukuvinkkikirjasto.dao.SqlTagDao;
 import lukuvinkkikirjasto.dao.SqlTipDao;
 import lukuvinkkikirjasto.domain.Tip;
 import lukuvinkkikirjasto.domain.TipService;
@@ -36,7 +37,7 @@ public class StepDefs {
         
         Database database = new Database("jdbc:sqlite:vinkkitietokanta-test.db"); 
         database.createTables();        
-        tipService = new TipService(new SqlTipDao(database));
+        tipService = new TipService(new SqlTipDao(database), new SqlTagDao(database));
     }
 
     @After
@@ -64,9 +65,9 @@ public class StepDefs {
         testTips = new ArrayList<>();
         LocalDateTime now = LocalDateTime.now();
         Date date = java.sql.Timestamp.valueOf(now);
-        testTips.add(tipService.createTip(date, "test-title1", "test-link1", "test-desciption1"));
-        testTips.add(tipService.createTip(date, "test-title2", "test-link2", "test-desciption2"));
-        testTips.add(tipService.createTip(date, "test-title3", "test-link3", "test-desciption3"));
+        testTips.add(tipService.createTip(date, "test-title1", "test-link1", "test-desciption1", "test-tag"));
+        testTips.add(tipService.createTip(date, "test-title2", "test-link2", "test-desciption2", "test-tag"));
+        testTips.add(tipService.createTip(date, "test-title3", "test-link3", "test-desciption3", "test-tag"));
     }
 
     @Given("no tip items have been added")
@@ -150,6 +151,11 @@ public class StepDefs {
     
     @Then("a list containing items with dates is shown")
     public void aListContainingItemsWithDatesIsShown() throws Exception {       
+        aListContainingRightItemsIsShown();
+    }
+
+    @Then("a list containing tags is shown")
+    public void aListContainingTagsIsShown() throws Exception {       
         aListContainingRightItemsIsShown();
     }
 
