@@ -22,16 +22,16 @@ public class TipService {
     public List<Tip> getAll() throws SQLException {
         List<Tip> tips = tipDao.getAll();
         Collections.sort(tips);
-        //return tipDao.getAll();
+        
         return tips;
     }
     
     public Tip createTip(Date date, String title, String link, String description, String tagsString) throws SQLException {
-        List<String> tags = new ArrayList<>();
-        tags.add(tagsString);
+        String[] arr = tagsString.split(", ");
+        
         Tip newTip = tipDao.create(date, title, link, description);
 
-        for (String tag : tags) {
+        for (String tag : arr) {
             Tag newTag = tagDao.getOrCreate(tag);
             newTip.addTag(newTag);
             this.tipDao.addTagForTip(newTip.getId(), newTag.getId());

@@ -56,6 +56,15 @@ public class Tip implements Comparable<Tip> {
         this.tags.add(tag);
     }
     
+    public String allTagsAsString() {
+        String s = "";
+        for (Tag tag : tags) {
+            s = s + tag.toString() + ", ";
+        }
+        s = s.substring(0, s.length() - 2);
+        return s;
+    }
+    
     @Override
     public String toString() {
         SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/YYYY HH:mm");
@@ -65,7 +74,7 @@ public class Tip implements Comparable<Tip> {
                 "Linkki: " + this.link + "\n" +
                 "Tallennettu: " + dateString + "\n" +
                 "Kuvaus: " + this.description + "\n" +
-                "Tagit: " + this.tags;
+                "Tagit: " + allTagsAsString();
     }
 
     @Override

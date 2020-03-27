@@ -102,6 +102,11 @@ public class StepDefs {
         inputLines.add(tag);
     }
 
+    @When("tags {string} are entered")
+    public void TagAreEntered(String tags) {
+        inputLines.add(tags);
+    }
+    
     @When("new tip fields are filled")
     public void newTipFieldsAreFilled() {
         inputLines.add("title");
@@ -143,6 +148,20 @@ public class StepDefs {
         assertTrue(entries.get(0).getTags().get(0).getTag().contains(tag));
     }
 
+    @Then("tip with tags {string} can be found from the system") 
+    public void tipWithTagsCanBeFound(String tags) throws Exception{
+        List<Tip> entries = tipService.getAll();
+    
+        String[] arr = tags.split(", ");
+        String s1 = arr[0];
+        String s2 = arr[1];
+        
+        assertTrue(entries.get(0).getTags().get(0).getTag().contains(s1));
+        assertTrue(entries.get(0).getTags().get(1).getTag().contains(s2));
+        
+    }
+
+    
     @Then("the tip is saved with timestamp")
     public void theTipIsSavedWithRightTimestamp() throws Exception {
         runApp();

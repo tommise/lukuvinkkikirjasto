@@ -15,3 +15,10 @@ Feature: User can add tag to Tip
         Then a list containing tags is shown
 
     Scenario: Multiple tags can be added by separatig them with comma
+        Given a user has chosen command one to add items
+        When title "Lonely Planet Berlin" is entered
+        And a link "" is entered
+        And description "" is entered
+        And tags "matkailu, eurooppa" are entered
+        Then system will respond with "Lukuvinkki lisatty!"
+        Then tip with tags "matkailu, eurooppa" can be found from the system
