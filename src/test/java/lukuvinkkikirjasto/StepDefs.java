@@ -46,7 +46,7 @@ public class StepDefs {
     public void after() throws Exception{
         Files.deleteIfExists(Paths.get("vinkkitietokanta-test.db"));
     }
-
+    
     @Given("a user has chosen command 2 to view items")
     public void aUserHasChosenCommand() {
         inputLines.add("2");

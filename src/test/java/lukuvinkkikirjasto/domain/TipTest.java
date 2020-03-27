@@ -23,6 +23,7 @@ public class TipTest {
         assertTrue(tip.toString().contains("test-link"));
         assertTrue(tip.toString().contains("test-description"));
         assertTrue(tip.toString().contains("test-tag"));
+        assertEquals(tip.getId(), 1);
         
     }
 }

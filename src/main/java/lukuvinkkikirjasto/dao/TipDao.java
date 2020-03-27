@@ -15,4 +15,8 @@ public interface TipDao {
     List<Tip> getAll() throws SQLException;
 
     void addTagForTip(int tipId, int tagId) throws SQLException;
+    
+    boolean deleteTip(int id) throws SQLException;
+    
+
 }

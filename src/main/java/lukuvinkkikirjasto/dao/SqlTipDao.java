@@ -127,4 +127,33 @@ public class SqlTipDao implements TipDao {
         statement.close();
         connection.close();
     }
+
+    @Override
+    public boolean deleteTip(int tipId) throws SQLException {
+        //checkIfTagNeedsToBeRemovedFromTagTable(tipId)
+        deleteTipFromTipTable(tipId);
+        deleteTipDataFromTipTagTable(tipId);  
+        
+        return true;
+    }
+    
+    private void deleteTipFromTipTable(int tipId) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement statement = connection.prepareStatement("DELETE FROM Tip WHERE id = ?");
+        statement.setInt(1, tipId);
+        statement.executeUpdate();
+        statement.close();
+        connection.close();
+    }
+
+    private void deleteTipDataFromTipTagTable(int tipId) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement statement = connection.prepareStatement("DELETE FROM TipTag WHERE tipid = ?");
+        statement.setInt(1, tipId);
+        statement.executeUpdate();
+        statement.close();
+        connection.close();
+    }
+    
+    
 }
