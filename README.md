@@ -9,7 +9,11 @@
 
 [Sprintti 2](https://docs.google.com/spreadsheets/d/1UMzBbBumxvwz7_kkdy7kEW3knXUErZN63khtOkXKNxQ/edit#gid=1806709844)
 
+[Sprintti 3](https://docs.google.com/spreadsheets/d/1UMzBbBumxvwz7_kkdy7kEW3knXUErZN63khtOkXKNxQ/edit?usp=sharing)
+
 [Release, sprintti 2](https://github.com/tommise/lukuvinkkikirjasto/releases/tag/v1.0)
+
+Release, sprintti 3
 
 ## Dokumentaatio
 
