@@ -77,6 +77,18 @@ public class StepDefs {
         testTips.add(tipService.createTip(date, "test-title3", "test-link3", "test-desciption3", "test-tag"));
     }
 
+    @Given("tip items with different timestamp have been added") 
+    public void dataBaseHasBeenInitializedDifferentTime() throws SQLException {
+        testTips = new ArrayList<>();
+        LocalDateTime now = LocalDateTime.now();
+        Date date = java.sql.Timestamp.valueOf(now);
+        testTips.add(tipService.createTip(date, "test-title-first", "test-link1", "test-desciption1", "test-tag"));
+        LocalDateTime now2 = LocalDateTime.now();
+        Date date2 = java.sql.Timestamp.valueOf(now2);
+        testTips.add(tipService.createTip(date2, "test-title-second", "test-link2", "test-desciption2", "test-tag"));
+    }
+
+
     @Given("no tip items have been added")
     public void noTipItemsHaveBeenAdded() {
         //testTips = new ArrayList<>();
@@ -208,6 +220,14 @@ public class StepDefs {
     @Then("a list containing tags is shown")
     public void aListContainingTagsIsShown() throws Exception {       
         aListContainingRightItemsIsShown();
+    }
+
+    @Then("the tip entered first appears last in list")
+    public void tipEnteredFirstAppearsFirst() throws Exception {
+        runApp();
+        int positionOfFirst = stubIO.getPrints().toString().indexOf("test-title-first");
+        int positionOfSecod = stubIO.getPrints().toString().indexOf("test-title-second");
+        assertTrue(positionOfFirst > positionOfSecod);  
     }
 
     private void runApp() throws Exception {
