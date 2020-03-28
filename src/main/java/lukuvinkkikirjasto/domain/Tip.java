@@ -57,6 +57,9 @@ public class Tip implements Comparable<Tip> {
     }
     
     public String allTagsAsString() {
+        if(this.tags.isEmpty() || this.tags == null) {
+            return "";
+        }
         String s = "";
         for (Tag tag : tags) {
             s = s + tag.toString() + ", ";
@@ -74,7 +77,9 @@ public class Tip implements Comparable<Tip> {
                 "Linkki: " + this.link + "\n" +
                 "Tallennettu: " + dateString + "\n" +
                 "Kuvaus: " + this.description + "\n" +
-                "Tagit: " + allTagsAsString();
+                "Tagit: " + allTagsAsString() + "\n" +
+                "Id: " + this.id;
+        
     }
 
     @Override

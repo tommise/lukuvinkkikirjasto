@@ -46,6 +46,11 @@ public class StepDefs {
     public void after() throws Exception{
         Files.deleteIfExists(Paths.get("vinkkitietokanta-test.db"));
     }
+    
+    @Given("a user has chosen command 3 to delete items")
+    public void aUserHasChosenCommandToDelete() {
+        inputLines.add("3");
+    }
 
     @Given("a user has chosen command 2 to view items")
     public void aUserHasChosenCommand() {
@@ -106,6 +111,11 @@ public class StepDefs {
     public void TagAreEntered(String tags) {
         inputLines.add(tags);
     }
+
+    @When("a user has entered tip id {string}")
+    public void IdIsEntered(String id) {
+        inputLines.add(id);
+    }
     
     @When("new tip fields are filled")
     public void newTipFieldsAreFilled() {
@@ -146,6 +156,14 @@ public class StepDefs {
     public void tipWithTagCanBeFound(String tag) throws Exception{
         List<Tip> entries = tipService.getAll();        
         assertTrue(entries.get(0).getTags().get(0).getTag().contains(tag));
+    }
+
+    @Then("tip with id {string} can not be found from the system") 
+    public void tipWithIdCanNotBeFound(String id) throws Exception{
+        List<Tip> entries = tipService.getAll();
+        List<Integer> ids = entries.stream().map(tip -> tip.getId()).collect(Collectors.toList());
+        System.out.println(ids);
+        assertFalse(ids.contains(Integer.parseInt(id)));
     }
 
     @Then("tip with tags {string} can be found from the system") 

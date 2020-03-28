@@ -39,6 +39,20 @@ public class TipService {
 
         return newTip;
     }
+    
+    public boolean deleteTip(int tipId) throws SQLException {
+        List<Tip> tips = tipDao.getAll();
+        boolean result = false;
+        
+        for (Tip tip : tips) {
+            if (tip.getId() == tipId) {
+                result = true;
+                this.tipDao.deleteTip(tipId);
+            }
+        }
+        
+        return result;
+    }
 
     
 }

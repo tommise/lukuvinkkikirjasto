@@ -30,6 +30,7 @@ public class IOService {
         TreeMap commands = new TreeMap<>();
         commands.put("1", "1: luo uusi lukuvinkki");
         commands.put("2", "2: tarkastele vinkkejä");
+        commands.put("3", "3: poista lukuvinkki");
         commands.put("x", "x: lopeta");
         return commands;
     }    
@@ -56,6 +57,9 @@ public class IOService {
                 if (command.equals("2")) {
                     listAllTips();
                 }
+                if (command.equals("3")) {
+                    deleteTip();
+                }
                 if (command.equals("x")) {
                     break;
                 }
@@ -64,6 +68,21 @@ public class IOService {
             io.print(e.getMessage());
             io.print("Tapahtui virhe. Ohjelma suljetaan. Yritä uudelleen myöhemmin!");
         }
+    }
+    
+    private void deleteTip() throws SQLException {
+        io.print("Poistettavan lukuvinkin id: ");
+        String stringId = io.nextLine();
+        int id = Integer.parseInt(stringId);
+        boolean success = tipService.deleteTip(id);
+        
+        if (success == true) {
+            io.print("Vinkki poistettu.");
+        } else {
+            io.print("Sinulla ei ole vinkkiä annetulla id:llä.");
+        }
+        
+        io.print("");
     }
     
     private void listAllTips() throws SQLException {
