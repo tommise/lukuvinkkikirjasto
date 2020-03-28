@@ -26,6 +26,7 @@ public class TipService {
         return tips;
     }
     
+    
     public Tip createTip(Date date, String title, String link, String description, String tagsString) throws SQLException {
         String[] arr = tagsString.split(", ");
         

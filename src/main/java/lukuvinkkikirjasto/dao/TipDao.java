@@ -12,6 +12,8 @@ public interface TipDao {
     
     Tip findByTitle(String title) throws SQLException;
     
+    Tip findById(int tipId) throws SQLException;
+    
     List<Tip> getAll() throws SQLException;
 
     void addTagForTip(int tipId, int tagId) throws SQLException;

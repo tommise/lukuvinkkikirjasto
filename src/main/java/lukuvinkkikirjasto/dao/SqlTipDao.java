@@ -130,12 +130,68 @@ public class SqlTipDao implements TipDao {
 
     @Override
     public boolean deleteTip(int tipId) throws SQLException {
-        //checkIfTagNeedsToBeRemovedFromTagTable(tipId)
+        removeAtipsTagDataFromTagTable(tipId);
         deleteTipFromTipTable(tipId);
         deleteTipDataFromTipTagTable(tipId);  
         
+        
         return true;
     }
+    
+    public void removeAtipsTagDataFromTagTable(int tipId) throws SQLException {
+        Tip tip = findById(tipId);
+        List<Tag> tags = tip.getTags();
+        List<Integer> tagIds = new ArrayList<>();
+        
+        for (Tag t : tags) {
+            tagIds.add(t.getId());
+        }
+        
+        for (int tagId : tagIds) {
+            boolean result = checkIfTagNeedsToBeRemoved(tagId);
+            if (result == true) {
+                removeTagFromTagTable(tagId);
+            }
+        }   
+    }
+    
+    public boolean checkIfTagNeedsToBeRemoved(int tagId) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement statement = connection.prepareStatement("SELECT COUNT(*) FROM TipTag WHERE tagid = ?");
+        statement.setInt(1, tagId);
+        ResultSet rs = statement.executeQuery();
+        
+        boolean hasOne = rs.next();
+        
+        if (!hasOne) {
+            rs.close();
+            statement.close();
+            connection.close();
+            return false;
+        }
+        
+        int rowCount = rs.getInt(1);
+        
+        statement.close();
+        connection.close();
+        
+        if (rowCount >= 2) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    
+    public void removeTagFromTagTable(int tagId) throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement statement = connection.prepareStatement("DELETE FROM Tag WHERE id = ?");
+        statement.setInt(1, tagId);
+        statement.executeUpdate();
+        statement.close();
+        connection.close();
+    }
+    
     
     private void deleteTipFromTipTable(int tipId) throws SQLException {
         Connection connection = database.getConnection();
@@ -153,6 +209,36 @@ public class SqlTipDao implements TipDao {
         statement.executeUpdate();
         statement.close();
         connection.close();
+    }
+
+    @Override
+    public Tip findById(int tipId) throws SQLException {
+        Connection connection = database.getConnection();
+            
+        PreparedStatement statement = connection.prepareStatement("SELECT * FROM Tip WHERE id = ?");
+        statement.setInt(1, tipId);
+
+        ResultSet rs = statement.executeQuery();
+        
+        boolean hasOne = rs.next();
+        
+        if (!hasOne) {
+            rs.close();
+            statement.close();
+            connection.close();
+            return null;
+        }
+        
+        Tip tip = new Tip(rs.getDate("date"), rs.getString("title"), rs.getString("link"),  rs.getString("description"), rs.getInt("id"));
+        
+
+        rs.close();
+        statement.close();
+        connection.close();
+        
+        tip.setTags(getTags(tip.getTitle()));
+
+        return tip;
     }
     
     
