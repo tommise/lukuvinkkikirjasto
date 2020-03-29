@@ -79,7 +79,7 @@ public class IOService {
         if (success == true) {
             io.print("Vinkki poistettu.");
         } else {
-            io.print("Sinulla ei ole vinkkiä annetulla id:llä.");
+            io.print("Sinulla ei ole vinkkia annetulla id:lla.");
         }
         
         io.print("");

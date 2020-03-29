@@ -130,37 +130,41 @@ public class SqlTipDao implements TipDao {
 
     @Override
     public boolean deleteTip(int tipId) throws SQLException {
-        removeAtipsTagDataFromTagTable(tipId);
-        deleteTipFromTipTable(tipId);
-        deleteTipDataFromTipTagTable(tipId);  
+        List<Integer> tagIds = getTagIdsForATip(tipId);
         
+        deleteTipDataFromTipTagTable(tipId);       
+        removeAtipsTagDataFromTagTable(tagIds);
+        deleteTipFromTipTable(tipId);
+          
         
         return true;
     }
     
-    public void removeAtipsTagDataFromTagTable(int tipId) throws SQLException {
+    private List<Integer> getTagIdsForATip(int tipId) throws SQLException{
         Tip tip = findById(tipId);
         List<Tag> tags = tip.getTags();
         List<Integer> tagIds = new ArrayList<>();
-        
         for (Tag t : tags) {
             tagIds.add(t.getId());
         }
         
+        return tagIds;
+    }
+    
+    private void removeAtipsTagDataFromTagTable(List<Integer> tagIds) throws SQLException {   
         for (int tagId : tagIds) {
-            boolean result = checkIfTagNeedsToBeRemoved(tagId);
+            boolean result = checkIfTagNeedsToBeRemoved(tagId);           
             if (result == true) {
                 removeTagFromTagTable(tagId);
             }
         }   
     }
     
-    public boolean checkIfTagNeedsToBeRemoved(int tagId) throws SQLException {
+    private boolean checkIfTagNeedsToBeRemoved(int tagId) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement statement = connection.prepareStatement("SELECT COUNT(*) FROM TipTag WHERE tagid = ?");
         statement.setInt(1, tagId);
         ResultSet rs = statement.executeQuery();
-        
         boolean hasOne = rs.next();
         
         if (!hasOne) {
@@ -169,21 +173,19 @@ public class SqlTipDao implements TipDao {
             connection.close();
             return false;
         }
-        
         int rowCount = rs.getInt(1);
         
         statement.close();
         connection.close();
         
-        if (rowCount >= 2) {
+        if (rowCount >= 1) {
             return false;
-        } else {
+        } else { 
             return true;
         }
     }
     
-    
-    public void removeTagFromTagTable(int tagId) throws SQLException {
+    private void removeTagFromTagTable(int tagId) throws SQLException {
         Connection connection = database.getConnection();
         PreparedStatement statement = connection.prepareStatement("DELETE FROM Tag WHERE id = ?");
         statement.setInt(1, tagId);
