@@ -1,29 +1,10 @@
 ## Asennusohjeet:
 
-Kloonaa lukuvinkkikirjasto paikallisesti haluamaasi kansioon komennolla:
+Lataa tiedosto RELEASEN LINKKI TÄHÄN.
 
+Käynnistä ohjelma komennolla:
 ```
-git clone git@github.com:tommise/lukuvinkkikirjasto.git
-```
-ja avaa kansio terminaalilla.
-
-Suorita seuraavat gradlen komennot:
-```
-./gradlew
-```
-```
-./gradlew clean
-```
-```
-./gradlew build
-```
-Luo projektista suoritettava .jar tiedosto:
-```
-./gradlew shadowJar
-```
-Käynnistä sovellus projektin juurikansiossa komennolla:
-```
-java -jar build/libs/lukuvinkkikirjasto-all.jar
+java -jar lukuvinkkikirjasto-all.jar
 ```
 
 ## Käyttöohjeet:
@@ -34,6 +15,8 @@ Kun olet käynnistänyt sovelluksen asennusohjeiden mukaisesti, saat konsoliisi 
 Valitse joku seuraavista komennoista:
 1: luo uusi lukuvinkki
 2: tarkastele vinkkejä
+3: poista lukuvinkki
+x: lopeta
 ```
 
 #### Luo uusi lukuvinkki
@@ -42,11 +25,19 @@ Komennolla "1" luot uuden lukuvinkin. Luodessasi uuden lukuvinkin ohjelma kysyy 
 ```
 Otsikko:
 ```
-Kun olet valinnut lukuvinkillesi haluamasi otsikon ja painanut enter, kysytään seuraavaksi linkkiä.
+Kun olet valinnut lukuvinkillesi haluamasi otsikon ja painanut enter, kysytään seuraavaksi linkkiä. Linkkiä ei ole pakko lisätä, joten tämän kohdan voi jättää tyhjäksi.
 ```
 Linkki:
 ```
-Kun lukuvinkille on valittu haluamasi linkki ja painettu enter, ohjelma ilmoittaa sinulle lukuvinkin lisäämisen onnistumisesta.
+Painettuasi enter voit lisätä lukuvinkille kuvauksen. Myös kuvauksen voi jättää tyhjäksi:
+```
+Kuvaus:
+```
+Tämän jälkeen voit lisätä lukuvinkille yhden tai useamman tagin. Erottele tagit pilkulla (esim. tagi1, tagi2):
+```
+tagit: 
+```
+Kun lukuvinkille on valittu haluamasi tiedot ja painettu enter, ohjelma ilmoittaa sinulle lukuvinkin lisäämisen onnistumisesta.
 ```
 Lukuvinkki lisatty!
 ```
@@ -55,12 +46,26 @@ Lukuvinkki lisatty!
 
 Komennolla "2" voit tarkastella luotuja lukuvinkkejä. Lukuvinkkisi listataan seuraavanlaisesti:
 ```
-Otsikko: Lukuvinkin 1 otsikko
-Linkki: Lukuvinkin 1 linkki
+Otsikko: Parhaat ohjelmointiniksit
+Linkki: www.parhaatniksit.fi
+Tallennettu: 22/03/2020 14:15
+Kuvaus: kollega sanoi että tästä blogista löytyy tosi hyviä juttuja
+Tagit: ohjelmointi, blogit
+Id: 28
 
-Otsikko: Lukuvinkin 2 otsikko
-Linkki: Lukuvinkin 2 linkki
 ```
 
-Ohjelmasta voidaan poistua esimerkiksi komennolla Ctrl + C.
+### Poista lukuvinkki
+
+Komennolla "3" voit poistaa lukuvinkin id:n perusteella. Id:n voit tarkistaa komennolla "2" saamasta listauksesta.
+
+```
+Poistettavan lukuvinkin id: 
+```
+Kun olet syöttänyt poistettavan lukuvinkin id:n, ohjelma ilmoittaa sinulle lukuvinkin poistamisen onnistumisesta:
+```
+Vinkki poistettu.
+```
+
+Ohjelmasta poistutaan komennolla "x". Kun seuraavan kerran käynnistät ohjelman, aiemmin syöttämäsi tiedot ovat tallessa.
 
