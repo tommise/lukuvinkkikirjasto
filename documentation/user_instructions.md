@@ -1,6 +1,6 @@
 ## Asennusohjeet:
 
-Lataa tiedosto RELEASEN LINKKI TÄHÄN.
+Lataa tiedosto [lukuvinkkikirjasto-all.jar](https://github.com/tommise/lukuvinkkikirjasto/releases/tag/v1.1).
 
 Käynnistä ohjelma komennolla:
 ```

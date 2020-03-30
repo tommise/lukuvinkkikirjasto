@@ -13,7 +13,7 @@
 
 [Release, sprintti 2](https://github.com/tommise/lukuvinkkikirjasto/releases/tag/v1.0)
 
-Release, sprintti 3
+[Release, sprintti 3](https://github.com/tommise/lukuvinkkikirjasto/releases/tag/v1.1)
 
 ## Dokumentaatio
 
