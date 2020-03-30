@@ -33,7 +33,7 @@ Painettuasi enter voit lisätä lukuvinkille kuvauksen. Myös kuvauksen voi jät
 ```
 Kuvaus:
 ```
-Tämän jälkeen voit lisätä lukuvinkille yhden tai useamman tagin. Erottele tagit pilkulla (esim. tagi1, tagi2):
+Tämän jälkeen voit lisätä halutessasi lukuvinkille yhden tai useamman tagin. Erottele tagit pilkulla (esim. tagi1, tagi2):
 ```
 tagit: 
 ```
