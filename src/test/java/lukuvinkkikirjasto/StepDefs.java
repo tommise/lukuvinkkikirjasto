@@ -10,7 +10,6 @@ import static org.junit.Assert.*;
 import lukuvinkkikirjasto.dao.Database;
 import lukuvinkkikirjasto.dao.SqlTagDao;
 import lukuvinkkikirjasto.dao.SqlTipDao;
-import lukuvinkkikirjasto.domain.Tag;
 import lukuvinkkikirjasto.domain.Tip;
 import lukuvinkkikirjasto.domain.TipService;
 import lukuvinkkikirjasto.ui.StubIO;
@@ -23,7 +22,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 

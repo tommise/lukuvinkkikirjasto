@@ -2,7 +2,6 @@ package lukuvinkkikirjasto.domain;
 
 import org.junit.*;
 
-import lukuvinkkikirjasto.dao.MockTipDao;
 import lukuvinkkikirjasto.dao.TagDao;
 import lukuvinkkikirjasto.dao.TipDao;
 

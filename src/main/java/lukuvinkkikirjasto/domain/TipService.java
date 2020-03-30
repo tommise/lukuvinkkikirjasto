@@ -2,7 +2,6 @@
 package lukuvinkkikirjasto.domain;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;

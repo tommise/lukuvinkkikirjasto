@@ -2,8 +2,6 @@
 package lukuvinkkikirjasto.dao;
 
 import java.sql.*;
-import java.util.*;
-import java.util.logging.*;
 
 public class Database {
     

@@ -1,11 +1,10 @@
-
-package lukuvinkkikirjasto.dao;
+package lukuvinkkikirjasto.domain;
 
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
-import lukuvinkkikirjasto.domain.Tip;
+import lukuvinkkikirjasto.dao.TipDao;
 
 public class MockTipDao implements TipDao {
     private List<Tip> tips;
