@@ -23,7 +23,12 @@ public class TipTest {
         assertTrue(tip.toString().contains("test-link"));
         assertTrue(tip.toString().contains("test-description"));
         assertTrue(tip.toString().contains("test-tag"));
-        assertEquals(tip.getId(), 1);
-        
+        assertEquals(tip.getId(), 1);        
+    }
+
+    @Test
+    public void allTagsAsStringReturnsEmptyIfNull() {
+        Tip tip = new Tip(new Date(), "test-title", "test-link", "test-description", 1);
+        assertEquals("", tip.allTagsAsString());
     }
 }
