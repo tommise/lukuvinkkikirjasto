@@ -3,6 +3,8 @@
 
 # Lukuvinkkikirjasto
 
+[Loppuraportti](https://docs.google.com/document/d/17agx2BSt7H1LsIPlkPD_YkcRQG8spGkPLDJa4jvbRJg/edit?usp=sharing)
+
 [Backlog](https://docs.google.com/spreadsheets/d/1UMzBbBumxvwz7_kkdy7kEW3knXUErZN63khtOkXKNxQ/edit#gid=1)
 
 [Sprintti 1](https://docs.google.com/spreadsheets/d/1UMzBbBumxvwz7_kkdy7kEW3knXUErZN63khtOkXKNxQ/edit#gid=0) 
